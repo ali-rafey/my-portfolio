@@ -1,197 +1,73 @@
-'use client';
-
-import { useEffect, useRef } from 'react';
 import styles from './Hero.module.css';
 
 // =============================================================================
-// Hero — "builder mode activated".
+// Hero — "productivity mode" poster, faithful to the reference, starring Ali.
 // =============================================================================
-// A poster-style hero: Ali's portrait in the centre of a soft silver stage,
-// surrounded by floating desktop "components" — app icons, a portfolio
-// browser card, the pinch-portal card, a focus panel, a poster, a polaroid —
-// plus a designer toolbar and a dock. Every piece is drawn inline (SVG/CSS);
-// the only asset is /ali.jpg (drop the real photo into public/ — a silhouette
-// fallback renders until then).
+// Ali's cutout portrait (public/ali.png) stands centre on a silver wall.
+// Around him, as in the reference poster:
+//   top-left   Behance-style portfolio card            (label: Behance portfolio)
+//   left-mid   Pinterest boards collage                (label: Pinterest boards)
+//   left-low   ghost calendar with the day circled
+//   top-right  notification stack (Do Not Disturb / Work) — behind his head
+//   right arc  Gmail · Slack · Notion(100) · WhatsApp · Spotify
+//   left arc   Claude · GitHub · LinkedIn
+//   shoulder   ID card, phone-message card, orange poster on a chain-link card
+//   bottom     designer toolbar (T active) + macOS dock (Figma centred)
 //
-// Motion: each piece bobs gently on its own rhythm, and the whole cloud
-// parallaxes a few pixels against the pointer. Honours reduced-motion.
+// Everything is STATIC — no idle motion, no parallax. The only animation is a
+// per-icon hover lift, scoped to the icon actually under the pointer. Server
+// component: zero client JS.
 // =============================================================================
 
-/** Floating wrapper: outer = pointer parallax (depth), inner = idle bob. */
-function Float({
-  className,
-  depth = 6,
-  delay = 0,
-  children,
+function Float({ className, children }: { className: string; children: React.ReactNode }) {
+  return <div className={`${styles.float} ${className}`}>{children}</div>;
+}
+
+const RIGHT_ICONS = [
+  { label: 'Gmail', src: '/icons/gmail.webp', cls: 'posGmail', behind: true },
+  { label: 'Slack', src: '/icons/slack.webp', cls: 'posSlack', behind: false },
+  { label: 'Notion', src: '/icons/notion.webp', cls: 'posNotion', behind: false, badge: '100' },
+  { label: 'WhatsApp', src: '/icons/whatsapp.webp', cls: 'posWhatsApp', behind: false },
+  { label: 'Spotify', src: '/icons/spotify.png', cls: 'posSpotify', behind: false },
+] as const;
+
+const LEFT_ICONS = [
+  { label: 'Claude', src: '/icons/claude.webp', cls: 'posClaude', behind: false },
+  { label: 'GitHub', src: '/icons/github.webp', cls: 'posGithub', behind: false },
+  { label: 'LinkedIn', src: '/icons/linkedin.webp', cls: 'posLinkedin', behind: false },
+] as const;
+
+const BOARD_IMAGES = ['b-01', 'b-02', 'b-03', 'b-05', 'b-08', 'b-13'] as const;
+
+function IconFloat({
+  icon,
 }: {
-  className: string;
-  depth?: number;
-  delay?: number;
-  children: React.ReactNode;
+  icon: { label: string; src: string; cls: string; behind: boolean; badge?: string };
 }) {
   return (
     <div
-      className={`${styles.float} ${className}`}
-      style={{ '--depth': depth, '--delay': `${delay}s` } as React.CSSProperties}
+      className={`${styles.float} ${styles.iconFloat} ${styles[icon.cls]} ${
+        icon.behind ? styles.behindPortrait : ''
+      }`}
     >
-      <div className={styles.floatInner}>{children}</div>
+      <div className={styles.appChip}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={icon.src} alt={icon.label} width={30} height={30} />
+        {icon.badge ? <span className={styles.appBadge}>{icon.badge}</span> : null}
+      </div>
+      <span className={styles.floatLabel}>{icon.label}</span>
     </div>
   );
 }
 
-/* ── App icon chips (hand-drawn, close-enough marks) ─────────────────────── */
-
-function ChipFigma() {
-  return (
-    <svg viewBox="0 0 24 36" width="17" aria-hidden="true">
-      <path d="M6 0h6v12H6a6 6 0 0 1 0-12Z" fill="#F24E1E" />
-      <path d="M12 0h6a6 6 0 0 1 0 12h-6V0Z" fill="#FF7262" />
-      <path d="M6 12h6v12H6a6 6 0 0 1 0-12Z" fill="#A259FF" />
-      <circle cx="18" cy="18" r="6" fill="#1ABCFE" />
-      <path d="M6 24h6v6a6 6 0 1 1-6-6Z" fill="#0ACF83" />
-    </svg>
-  );
-}
-
-function ChipTerminal() {
-  return (
-    <svg viewBox="0 0 24 24" width="20" aria-hidden="true">
-      <rect width="24" height="24" rx="6" fill="#0A2036" />
-      <path
-        d="M6 8l4 4-4 4"
-        stroke="#4DE0A0"
-        strokeWidth="2"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path d="M12 16h6" stroke="#E8F4FF" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function ChipSpotify() {
-  return (
-    <svg viewBox="0 0 24 24" width="20" aria-hidden="true">
-      <circle cx="12" cy="12" r="12" fill="#1DB954" />
-      <path
-        d="M6.5 9.5c3.8-1.1 7.6-.8 10.8 1M7 12.6c3.1-.9 6.2-.6 8.9.8M7.6 15.6c2.4-.7 4.8-.5 6.9.6"
-        stroke="#fff"
-        strokeWidth="1.6"
-        fill="none"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function ChipNotion() {
-  return (
-    <svg viewBox="0 0 24 24" width="20" aria-hidden="true">
-      <rect width="24" height="24" rx="5" fill="#fff" stroke="#D8DCE2" />
-      <path
-        d="M7 18V6.5l2.4-.3L15 15V6h2v12l-2.5.3L8.9 9.5V18H7Z"
-        fill="#0A0F16"
-      />
-    </svg>
-  );
-}
-
-function ChipGitHub() {
-  return (
-    <svg viewBox="0 0 24 24" width="20" aria-hidden="true">
-      <rect width="24" height="24" rx="6" fill="#171B21" />
-      <circle cx="8" cy="7.5" r="2" fill="none" stroke="#E8EDF3" strokeWidth="1.6" />
-      <circle cx="8" cy="16.5" r="2" fill="none" stroke="#E8EDF3" strokeWidth="1.6" />
-      <circle cx="16.5" cy="9" r="2" fill="none" stroke="#E8EDF3" strokeWidth="1.6" />
-      <path
-        d="M8 9.5v5M16.5 11c0 3-3.5 2.5-6 4"
-        stroke="#E8EDF3"
-        strokeWidth="1.6"
-        fill="none"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function ChipVSCode() {
-  return (
-    <svg viewBox="0 0 24 24" width="20" aria-hidden="true">
-      <rect width="24" height="24" rx="6" fill="#E8F1FB" />
-      <path
-        d="M16.5 4.5 8 12l8.5 7.5 2-1V5.5l-2-1ZM8 12 4.8 9.4l-1.3.8v3.6l1.3.8L8 12Z"
-        fill="#0877DE"
-      />
-    </svg>
-  );
-}
-
-const ICON_CHIPS = [
-  { label: 'Figma', icon: <ChipFigma />, cls: 'posIcFigma', depth: 10, delay: 0.4 },
-  { label: 'Terminal', icon: <ChipTerminal />, cls: 'posIcTerm', depth: 14, delay: 1.1 },
-  { label: 'Spotify', icon: <ChipSpotify />, cls: 'posIcSpotify', depth: 8, delay: 1.9 },
-  { label: 'Notion', icon: <ChipNotion />, cls: 'posIcNotion', depth: 12, delay: 0.8 },
-  { label: 'GitHub', icon: <ChipGitHub />, cls: 'posIcGithub', depth: 11, delay: 1.5 },
-  { label: 'VS Code', icon: <ChipVSCode />, cls: 'posIcVscode', depth: 9, delay: 0.2 },
-] as const;
-
-/* ── Hero ────────────────────────────────────────────────────────────────── */
-
 export default function Hero() {
-  const stageRef = useRef<HTMLElement | null>(null);
-
-  // Pointer parallax: normalised cursor position drives --mx/--my, which every
-  // .float consumes scaled by its --depth. rAF-throttled; disabled for
-  // reduced-motion users.
-  useEffect(() => {
-    const stage = stageRef.current;
-    if (!stage) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    let raf = 0;
-    const onMove = (e: PointerEvent) => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
-        const r = stage.getBoundingClientRect();
-        const mx = ((e.clientX - r.left) / r.width - 0.5) * 2;
-        const my = ((e.clientY - r.top) / r.height - 0.5) * 2;
-        stage.style.setProperty('--mx', mx.toFixed(3));
-        stage.style.setProperty('--my', my.toFixed(3));
-      });
-    };
-    stage.addEventListener('pointermove', onMove);
-    return () => {
-      stage.removeEventListener('pointermove', onMove);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
-
   return (
-    <section ref={stageRef} className={styles.stage} aria-label="Ali — portfolio hero">
-      {/* Atmosphere */}
+    <section className={styles.stage} aria-label="Ali — portfolio hero">
       <span className={styles.ghostName} aria-hidden="true">
         ali
       </span>
-      <div className={styles.ghostCalendar} aria-hidden="true">
-        <p className={styles.calTitle}>july, friday</p>
-        <div className={styles.calGrid}>
-          {['s', 'm', 't', 'w', 't', 'f', 's'].map((d, i) => (
-            <span key={`d${i}`} className={styles.calHead}>
-              {d}
-            </span>
-          ))}
-          {Array.from({ length: 31 }, (_, i) => (
-            <span key={i} className={i + 1 === 18 ? styles.calToday : undefined}>
-              {i + 1}
-            </span>
-          ))}
-        </div>
-      </div>
       <div className={styles.grain} aria-hidden="true" />
 
-      {/* Chrome */}
       <header className={styles.topbar}>
         <span className={styles.wordmark}>
           <span className={styles.wordmarkDot} aria-hidden="true" />
@@ -208,156 +84,174 @@ export default function Hero() {
       </header>
 
       <p className={styles.caption}>
-        <span className={styles.captionDot} aria-hidden="true" />
-        Builder mode activated
+        <strong>Productivity mode</strong>&nbsp;activated
       </p>
 
-      {/* Portrait — /ali.jpg with a silhouette fallback painted underneath. */}
-      <div className={styles.portrait} role="img" aria-label="Portrait of Ali" />
+      {/* ── Left column ─────────────────────────────────────────────────── */}
 
-      {/* ── Floating components ─────────────────────────────────────────── */}
-
-      {/* Browser card — the portfolio itself. */}
-      <Float className={styles.posBrowser} depth={12} delay={0.6}>
-        <div className={styles.browserCard}>
-          <div className={styles.browserBar}>
-            <span className={styles.dotR} />
-            <span className={styles.dotY} />
-            <span className={styles.dotG} />
-            <span className={styles.urlPill}>ali.dev</span>
+      <Float className={styles.posBehance}>
+        <div className={styles.behanceCard}>
+          <div className={styles.behanceSidebar}>
+            <span className={styles.behanceAvatar} />
+            <span className={styles.behanceName} />
+            <span className={styles.behanceLine} />
+            <span className={styles.behanceLineShort} />
+            <span className={styles.behanceChip}>Follow</span>
+            <span className={styles.behanceLine} />
+            <span className={styles.behanceLineShort} />
           </div>
-          <div className={styles.browserBody}>
-            <span className={`${styles.tile} ${styles.tileA}`} />
-            <span className={`${styles.tile} ${styles.tileB}`} />
-            <span className={`${styles.tile} ${styles.tileC}`} />
-            <span className={`${styles.tile} ${styles.tileD}`} />
-            <span className={`${styles.tile} ${styles.tileE}`} />
-            <span className={`${styles.tile} ${styles.tileF}`} />
-          </div>
-          <span className={styles.browserLabel}>portfolio — live build</span>
-        </div>
-      </Float>
-
-      {/* Pinch Portal card — the lab experiment. */}
-      <Float className={styles.posPortal} depth={16} delay={1.3}>
-        <div className={styles.portalCard}>
-          <span className={styles.bkTL} />
-          <span className={styles.bkTR} />
-          <span className={styles.bkBL} />
-          <span className={styles.bkBR} />
-          <span className={styles.portalLive}>
-            <span className={styles.portalLiveDot} />
-            live
-          </span>
-          <p className={styles.portalName}>pinch portal</p>
-          <p className={styles.portalSub}>hand-tracking cv</p>
-        </div>
-      </Float>
-
-      {/* Focus / notifications panel. */}
-      <Float className={styles.posFocus} depth={10} delay={0.1}>
-        <div className={styles.focusPanel}>
-          <div className={styles.focusRow}>
-            <svg viewBox="0 0 16 16" width="13" aria-hidden="true">
-              <path
-                d="M13.5 9.5A6 6 0 0 1 6.5 2.5a6 6 0 1 0 7 7Z"
-                fill="#BBD7FA"
+          <div className={styles.behanceGrid}>
+            {BOARD_IMAGES.map((b) => (
+              <span
+                key={b}
+                className={styles.behanceThumb}
+                style={{ backgroundImage: `url('/boards/${b}.jpeg')` }}
               />
-            </svg>
-            <div>
-              <p className={styles.focusTitle}>Focus — building</p>
-              <p className={styles.focusSub}>notifications off</p>
-            </div>
-            <span className={styles.focusToggle}>
-              <span className={styles.focusKnob} />
+            ))}
+            <span className={styles.behanceTag}>Media</span>
+          </div>
+        </div>
+        <span className={styles.floatLabel}>Behance portfolio</span>
+      </Float>
+
+      <Float className={styles.posBoards}>
+        <div className={styles.boardsCard}>
+          {BOARD_IMAGES.slice()
+            .reverse()
+            .map((b) => (
+              <span
+                key={b}
+                className={styles.boardThumb}
+                style={{ backgroundImage: `url('/boards/${b}.jpeg')` }}
+              />
+            ))}
+        </div>
+        <span className={styles.floatLabel}>Pinterest boards</span>
+      </Float>
+
+      <div className={styles.ghostCalendar} aria-hidden="true">
+        <p className={styles.calTitle}>18 july, friday</p>
+        <div className={styles.calGrid}>
+          {['s', 'm', 't', 'w', 't', 'f', 's'].map((d, i) => (
+            <span key={`d${i}`} className={styles.calHead}>
+              {d}
             </span>
+          ))}
+          {Array.from({ length: 31 }, (_, i) => (
+            <span key={i} className={i + 1 === 18 ? styles.calToday : undefined}>
+              {i + 1}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Right column ────────────────────────────────────────────────── */}
+
+      <Float className={`${styles.posNotif} ${styles.behindPortrait}`}>
+        <div className={styles.notifStack}>
+          <div className={styles.notifPanel}>
+            <span className={styles.notifIcon}>
+              <svg viewBox="0 0 16 16" width="13" aria-hidden="true">
+                <path d="M13.5 9.5A6 6 0 0 1 6.5 2.5a6 6 0 1 0 7 7Z" fill="#C9D4E2" />
+              </svg>
+            </span>
+            <span>
+              <span className={styles.notifTitle}>Do Not Disturb</span>
+              <span className={styles.notifSub}>silence notifications</span>
+            </span>
+            <span className={styles.notifDots}>···</span>
           </div>
-          <div className={styles.focusDivider} />
-          <div className={styles.focusRow}>
-            <svg viewBox="0 0 16 16" width="13" aria-hidden="true">
-              <path
-                d="M8 2a4 4 0 0 1 4 4v3l1.2 2H2.8L4 9V6a4 4 0 0 1 4-4Zm-1.5 12h3a1.5 1.5 0 0 1-3 0Z"
-                fill="#94A1AF"
-              />
-            </svg>
-            <div>
-              <p className={styles.focusTitle}>Inbox zero</p>
-              <p className={styles.focusSub}>until the ship date</p>
-            </div>
-            <span className={styles.focusCount}>100</span>
+          <div className={`${styles.notifPanel} ${styles.notifPanelB}`}>
+            <span className={styles.notifIcon}>
+              <svg viewBox="0 0 16 16" width="12" aria-hidden="true">
+                <path
+                  d="M6 4V3a2 2 0 0 1 4 0v1h2.5A1.5 1.5 0 0 1 14 5.5v6A1.5 1.5 0 0 1 12.5 13h-9A1.5 1.5 0 0 1 2 11.5v-6A1.5 1.5 0 0 1 3.5 4H6Zm1.2 0h1.6V3a.8.8 0 0 0-1.6 0v1Z"
+                  fill="#C9D4E2"
+                />
+              </svg>
+            </span>
+            <span>
+              <span className={styles.notifTitle}>Work</span>
+              <span className={styles.notifSub}>active</span>
+            </span>
+            <span className={styles.notifDots}>···</span>
           </div>
         </div>
       </Float>
 
-      {/* App icon chips. */}
-      {ICON_CHIPS.map((c) => (
-        <Float key={c.label} className={styles[c.cls]} depth={c.depth} delay={c.delay}>
-          <div className={styles.chip}>
-            <span className={styles.chipIcon}>{c.icon}</span>
-          </div>
-          <span className={styles.chipLabel}>{c.label}</span>
-        </Float>
+      {RIGHT_ICONS.map((ic) => (
+        <IconFloat key={ic.label} icon={ic} />
+      ))}
+      {LEFT_ICONS.map((ic) => (
+        <IconFloat key={ic.label} icon={ic} />
       ))}
 
-      {/* Navy poster. */}
-      <Float className={styles.posPoster} depth={13} delay={1.8}>
-        <div className={styles.poster}>
-          <p>
-            the work
-            <br />
-            costs
-            <br />
-            everything.
-          </p>
-          <span className={styles.posterRule} />
+      {/* Shoulder cluster */}
+      <Float className={styles.posIdCard}>
+        <div className={styles.idCard}>
+          <span className={styles.idPhoto} />
         </div>
       </Float>
 
-      {/* Polaroid. */}
-      <Float className={styles.posPolaroid} depth={9} delay={0.9}>
-        <div className={styles.polaroid}>
-          <span className={styles.polaroidPhoto} />
-          <span className={styles.polaroidCaption}>ali — mmxxv</span>
+      <Float className={styles.posSms}>
+        <div className={styles.smsCard}>
+          <p className={styles.smsLine}>one day</p>
+          <p className={styles.smsLine}>or day one.</p>
+          <p className={styles.smsLineDim}>you decide.</p>
+          <span className={styles.smsBrand}>SAMSUNG</span>
         </div>
       </Float>
 
-      {/* Designer toolbar. */}
+      <Float className={styles.posPoster}>
+        <div className={styles.chainCard}>
+          <div className={styles.poster}>
+            <p>
+              the calling
+              <br />
+              costs little.
+              <br />
+              <em>the work</em>
+              <br />
+              <em>costs</em>
+              <br />
+              <em>everything.</em>
+            </p>
+          </div>
+        </div>
+        <span className={styles.floatLabel}>Pinterest boards</span>
+      </Float>
+
+      {/* ── Portrait (cutout) ───────────────────────────────────────────── */}
+      <div className={styles.portrait} role="img" aria-label="Portrait of Ali" />
+
+      {/* ── Bottom chrome ───────────────────────────────────────────────── */}
+
       <div className={styles.toolbar} aria-hidden="true">
-        <svg viewBox="0 0 16 16" width="14">
-          <path d="M4 2l8 6-3.5.8L10 13l-2 .8-1.5-4.2L4 12V2Z" fill="#5A6776" />
+        <svg viewBox="0 0 16 16" width="13">
+          <path d="M4 2l8 6-3.5.8L10 13l-2 .8-1.5-4.2L4 12V2Z" fill="#5A6167" />
         </svg>
-        <svg viewBox="0 0 16 16" width="14">
-          <path
-            d="M5 2v12M11 2v12M2 5h12M2 11h12"
-            stroke="#5A6776"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-          />
+        <svg viewBox="0 0 16 16" width="13">
+          <path d="M5 2v12M11 2v12M2 5h12M2 11h12" stroke="#5A6167" strokeWidth="1.3" strokeLinecap="round" />
         </svg>
-        <svg viewBox="0 0 16 16" width="14">
-          <rect x="3" y="3" width="10" height="10" rx="1" fill="none" stroke="#5A6776" strokeWidth="1.4" />
+        <svg viewBox="0 0 16 16" width="13">
+          <rect x="3" y="3" width="10" height="10" rx="1" fill="none" stroke="#5A6167" strokeWidth="1.3" />
+        </svg>
+        <svg viewBox="0 0 16 16" width="13">
+          <path d="M8 2l6 6-6 6-6-6 6-6Z" fill="none" stroke="#5A6167" strokeWidth="1.3" strokeLinejoin="round" />
         </svg>
         <span className={styles.toolActive}>T</span>
-        <svg viewBox="0 0 16 16" width="14">
-          <path
-            d="M3 13c0-4 2-9 5-11 1.5 1 2.5 3 2.5 5L13 9l-4 4H3Z"
-            fill="none"
-            stroke="#5A6776"
-            strokeWidth="1.3"
-          />
+        <svg viewBox="0 0 16 16" width="13">
+          <path d="M2 3h12v8H8l-3 3v-3H2V3Z" fill="none" stroke="#5A6167" strokeWidth="1.3" strokeLinejoin="round" />
         </svg>
-        <svg viewBox="0 0 16 16" width="14">
-          <path
-            d="M2 3h12v8H8l-3 3v-3H2V3Z"
-            fill="none"
-            stroke="#5A6776"
-            strokeWidth="1.4"
-            strokeLinejoin="round"
-          />
+        <span className={styles.toolSep} />
+        <svg viewBox="0 0 16 16" width="13">
+          <path d="M3 3h4v10H3zM9 3h4v6H9z" fill="none" stroke="#5A6167" strokeWidth="1.3" />
+        </svg>
+        <svg viewBox="0 0 16 16" width="13">
+          <path d="M6 4 3 8l3 4M10 4l3 4-3 4" stroke="#5A6167" strokeWidth="1.3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
 
-      {/* Dock. */}
       <div className={styles.dock} aria-hidden="true">
         <span className={`${styles.dockApp} ${styles.appFinder}`} />
         <span className={`${styles.dockApp} ${styles.appCompass}`}>
@@ -370,16 +264,21 @@ export default function Hero() {
           <span className={styles.petalC} />
           <span className={styles.petalD} />
         </span>
-        <span className={`${styles.dockApp} ${styles.appCode}`}>{'</>'}</span>
+        <span className={`${styles.dockApp} ${styles.appFigma}`}>
+          <svg viewBox="0 0 24 36" width="13" aria-hidden="true">
+            <path d="M6 0h6v12H6a6 6 0 0 1 0-12Z" fill="#F24E1E" />
+            <path d="M12 0h6a6 6 0 0 1 0 12h-6V0Z" fill="#FF7262" />
+            <path d="M6 12h6v12H6a6 6 0 0 1 0-12Z" fill="#A259FF" />
+            <circle cx="18" cy="18" r="6" fill="#1ABCFE" />
+            <path d="M6 24h6v6a6 6 0 1 1-6-6Z" fill="#0ACF83" />
+          </svg>
+        </span>
         <span className={`${styles.dockApp} ${styles.appFolder}`} />
+        <span className={`${styles.dockApp} ${styles.appSettings}`}>
+          <span className={styles.gear} />
+        </span>
         <span className={styles.dockSep} />
         <span className={`${styles.dockApp} ${styles.appTrash}`} />
-      </div>
-
-      {/* Scroll cue */}
-      <div className={styles.scrollCue} aria-hidden="true">
-        <span className={styles.scrollLine} />
-        scroll
       </div>
     </section>
   );
