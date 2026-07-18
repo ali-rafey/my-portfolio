@@ -1,0 +1,823 @@
+/* =============================================================================
+   Hero — poster stage. Portrait centre, floating desktop components around it.
+   ============================================================================= */
+.stage {
+  --mx: 0;
+  --my: 0;
+
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 50% 0%, #EAE8E3 0%, var(--paper) 48%, var(--paper-deep) 100%);
+}
+
+/* ── Atmosphere ──────────────────────────────────────────────────────────── */
+.ghostName {
+  position: absolute;
+  top: -0.12em;
+  left: 2vw;
+  z-index: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(16rem, 36vw, 32rem);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  user-select: none;
+}
+
+.ghostCalendar {
+  position: absolute;
+  left: 4vw;
+  top: 44%;
+  z-index: 0;
+  color: rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+  user-select: none;
+}
+
+.calTitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.9rem;
+}
+
+.calGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1.7rem);
+  row-gap: 0.55rem;
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.calHead {
+  font-weight: 600;
+  opacity: 0.8;
+  text-transform: uppercase;
+  font-size: 0.6rem;
+}
+
+.calToday {
+  position: relative;
+  color: #fff;
+}
+
+.calToday::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  transform: translate(-50%, -52%);
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Chrome ──────────────────────────────────────────────────────────────── */
+.topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--ink);
+}
+
+.wordmarkDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 9px rgba(8, 119, 222, 0.65);
+}
+
+.topLink {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--steel);
+  transition: color 0.3s var(--ease);
+}
+
+.topLink:hover {
+  color: var(--accent);
+}
+
+.caption {
+  position: absolute;
+  top: 4.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(10, 32, 54, 0.72);
+  white-space: nowrap;
+}
+
+.captionDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(8, 119, 222, 0.5); }
+  60%      { box-shadow: 0 0 0 7px rgba(8, 119, 222, 0); }
+}
+
+/* ── Portrait ────────────────────────────────────────────────────────────── */
+.portrait {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: min(620px, 96vw);
+  height: min(82svh, 760px);
+  background-image:
+    url('/ali.jpg'),
+    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'%3E%3Cpath fill='%23b8b6b1' d='M200 60c52 0 88 40 88 96 0 34-12 62-30 80 62 22 104 74 116 164l4 100H22l4-100c12-90 54-142 116-164-18-18-30-46-30-80 0-56 36-96 88-96Z'/%3E%3C/svg%3E");
+  background-size: cover, 78% auto;
+  background-position: center 12%, center bottom;
+  background-repeat: no-repeat, no-repeat;
+  filter: saturate(0.94) contrast(1.02);
+  mask-image: radial-gradient(
+    78% 88% at 50% 42%,
+    #000 46%,
+    rgba(0, 0, 0, 0.9) 58%,
+    transparent 78%
+  );
+  -webkit-mask-image: radial-gradient(
+    78% 88% at 50% 42%,
+    #000 46%,
+    rgba(0, 0, 0, 0.9) 58%,
+    transparent 78%
+  );
+}
+
+/* ── Float machinery ─────────────────────────────────────────────────────── */
+.float {
+  position: absolute;
+  z-index: 2;
+  transform: translate3d(
+    calc(var(--mx) * var(--depth, 6) * 1.1px),
+    calc(var(--my) * var(--depth, 6) * 1.1px),
+    0
+  );
+}
+
+.floatInner {
+  animation: bob 7s ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+@keyframes bob {
+  from { transform: translateY(-5px); }
+  to   { transform: translateY(6px); }
+}
+
+/* ── Browser card ────────────────────────────────────────────────────────── */
+.posBrowser {
+  left: clamp(1rem, 7vw, 9rem);
+  top: 17%;
+}
+
+.browserCard {
+  width: 232px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 26px 55px -22px rgba(10, 32, 54, 0.45);
+  transform: rotate(-7deg);
+  overflow: hidden;
+}
+
+.browserBar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #ECEFF3;
+}
+
+.dotR, .dotY, .dotG {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.dotR { background: #FF5F57; }
+.dotY { background: #FEBC2E; }
+.dotG { background: #28C840; }
+
+.urlPill {
+  margin-left: 6px;
+  padding: 2px 9px;
+  border-radius: 99px;
+  background: #F1F4F8;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  color: var(--steel);
+}
+
+.browserBody {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 10px;
+}
+
+.tile {
+  height: 44px;
+  border-radius: 7px;
+}
+
+.tileA { background: linear-gradient(135deg, #0877DE, #0A2036); }
+.tileB { background: linear-gradient(135deg, #E8F1FB, #C9D9EA); }
+.tileC { background: linear-gradient(135deg, #3AA0FF, #0877DE); }
+.tileD { background: linear-gradient(135deg, #DDE3EA, #F4F6FA); }
+.tileE { background: linear-gradient(135deg, #0A2036, #14406B); }
+.tileF { background: linear-gradient(135deg, #BBD7FA, #7DB8F2); }
+
+.browserLabel {
+  display: block;
+  padding: 0 10px 9px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  color: var(--steel);
+}
+
+/* ── Pinch Portal card ───────────────────────────────────────────────────── */
+.posPortal {
+  left: clamp(2rem, 12vw, 14rem);
+  top: 56%;
+}
+
+.portalCard {
+  position: relative;
+  width: 172px;
+  padding: 26px 18px 22px;
+  background: #0A2036;
+  border-radius: 12px;
+  box-shadow: 0 24px 50px -20px rgba(10, 32, 54, 0.6);
+  transform: rotate(5deg);
+  text-align: center;
+}
+
+.bkTL, .bkTR, .bkBL, .bkBR {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid #3AA0FF;
+}
+
+.bkTL { top: 8px;  left: 8px;  border-right: none; border-bottom: none; }
+.bkTR { top: 8px;  right: 8px; border-left: none;  border-bottom: none; }
+.bkBL { bottom: 8px; left: 8px;  border-right: none; border-top: none; }
+.bkBR { bottom: 8px; right: 8px; border-left: none;  border-top: none; }
+
+.portalLive {
+  position: absolute;
+  top: 9px;
+  right: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #3AA0FF;
+}
+
+.portalLiveDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #3AA0FF;
+  box-shadow: 0 0 7px rgba(58, 160, 255, 0.9);
+}
+
+.portalName {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #F3F6FA;
+}
+
+.portalSub {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: #7A97B4;
+}
+
+/* ── Focus panel ─────────────────────────────────────────────────────────── */
+.posFocus {
+  right: clamp(0.75rem, 5vw, 6rem);
+  top: 11%;
+}
+
+.focusPanel {
+  width: 238px;
+  padding: 13px 14px;
+  border-radius: 17px;
+  background: rgba(13, 20, 29, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 26px 55px -22px rgba(10, 32, 54, 0.55);
+  transform: rotate(3deg);
+}
+
+.focusRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.focusRow > div {
+  flex: 1;
+}
+
+.focusTitle {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #F3F6FA;
+}
+
+.focusSub {
+  font-size: 0.58rem;
+  color: #94A1AF;
+}
+
+.focusToggle {
+  position: relative;
+  width: 27px;
+  height: 16px;
+  border-radius: 99px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.focusKnob {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.focusDivider {
+  height: 1px;
+  margin: 10px 0;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.focusCount {
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.56rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ── App icon chips ──────────────────────────────────────────────────────── */
+.chip {
+  width: 47px;
+  height: 47px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 16px 34px -14px rgba(10, 32, 54, 0.45);
+}
+
+.chipIcon {
+  display: flex;
+}
+
+.chipLabel {
+  display: block;
+  margin-top: 6px;
+  text-align: center;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(10, 32, 54, 0.66);
+}
+
+.posIcFigma   { right: 31%; top: 17%; }
+.posIcNotion  { right: 23%; top: 25%; }
+.posIcTerm    { right: 14%; top: 40%; }
+.posIcSpotify { right: 24%; top: 49%; }
+.posIcGithub  { left: 30%;  top: 12%; }
+.posIcVscode  { left: 24%;  top: 43%; }
+
+/* ── Poster ──────────────────────────────────────────────────────────────── */
+.posPoster {
+  right: clamp(1.5rem, 8vw, 9rem);
+  top: 58%;
+}
+
+.poster {
+  width: 138px;
+  padding: 20px 16px 18px;
+  background: #0A2036;
+  border-radius: 10px;
+  box-shadow: 0 24px 50px -20px rgba(10, 32, 54, 0.6);
+  transform: rotate(6deg);
+}
+
+.poster p {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.55;
+  text-transform: uppercase;
+  color: #F3F6FA;
+}
+
+.posterRule {
+  display: block;
+  width: 26px;
+  height: 3px;
+  margin-top: 12px;
+  background: var(--accent);
+}
+
+/* ── Polaroid ────────────────────────────────────────────────────────────── */
+.posPolaroid {
+  right: 21%;
+  top: 66%;
+}
+
+.polaroid {
+  width: 118px;
+  padding: 7px 7px 9px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 20px 44px -18px rgba(10, 32, 54, 0.5);
+  transform: rotate(-6deg);
+}
+
+.polaroidPhoto {
+  display: block;
+  height: 108px;
+  border-radius: 4px;
+  background-color: #C9C7C2;
+  background-image: url('/ali.jpg');
+  background-size: cover;
+  background-position: center 18%;
+}
+
+.polaroidCaption {
+  display: block;
+  margin-top: 7px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+}
+
+/* ── Toolbar ─────────────────────────────────────────────────────────────── */
+.toolbar {
+  position: absolute;
+  left: clamp(1rem, 8vw, 9rem);
+  bottom: 13%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 9px 13px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px -16px rgba(10, 32, 54, 0.4);
+}
+
+.toolActive {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* ── Dock ────────────────────────────────────────────────────────────────── */
+.dock {
+  position: absolute;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 21px;
+  box-shadow: 0 24px 50px -20px rgba(10, 32, 54, 0.45);
+}
+
+.dockApp {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  overflow: hidden;
+  transition: transform 0.3s var(--ease);
+}
+
+.dockApp:hover {
+  transform: translateY(-6px) scale(1.08);
+}
+
+.appFinder {
+  background: linear-gradient(90deg, #7CC5F4 50%, #2E86E0 50%);
+}
+
+.appFinder::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 9px;
+  width: 20px;
+  height: 9px;
+  transform: translateX(-50%);
+  border: 2px solid #fff;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+}
+
+.appCompass {
+  background: radial-gradient(circle at 50% 40%, #F4F8FC 0%, #DCE6F0 60%, #B9CBDD 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.needle {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 13px solid #E24A4A;
+  position: relative;
+  transform: rotate(42deg);
+}
+
+.needle::after {
+  content: '';
+  position: absolute;
+  top: 13px;
+  left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 13px solid #FFFFFF;
+}
+
+.appNotes {
+  background: linear-gradient(180deg, #F7D774 24%, #FFFFFF 24%);
+}
+
+.appNotes::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 18px;
+  height: 14px;
+  background:
+    linear-gradient(#D7DCE2, #D7DCE2) 0 0 / 100% 2px no-repeat,
+    linear-gradient(#D7DCE2, #D7DCE2) 0 6px / 78% 2px no-repeat,
+    linear-gradient(#D7DCE2, #D7DCE2) 0 12px / 88% 2px no-repeat;
+}
+
+.appPhotos {
+  background: #fff;
+}
+
+.petalA, .petalB, .petalC, .petalD {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50% 50% 50% 4px;
+  opacity: 0.9;
+}
+
+.petalA { top: 6px;  left: 13px; background: #F5C33B; transform: rotate(45deg); }
+.petalB { top: 13px; right: 6px; background: #E2574C; transform: rotate(135deg); }
+.petalC { bottom: 6px; right: 13px; background: #7CB94F; transform: rotate(225deg); }
+.petalD { bottom: 13px; left: 6px; background: #3E8DDD; transform: rotate(315deg); }
+
+.appCode {
+  background: linear-gradient(145deg, #14406B, #0A2036);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #BBD7FA;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+.appFolder {
+  background: linear-gradient(180deg, #8FC3F0 0%, #5BA3E4 100%);
+}
+
+.appFolder::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 6px;
+  width: 14px;
+  height: 5px;
+  border-radius: 3px 3px 0 0;
+  background: #7CB6EC;
+}
+
+.appFolder::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 6px;
+  right: 6px;
+  bottom: 8px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #BBDBF7, #92C2EE);
+}
+
+.dockSep {
+  width: 1px;
+  height: 32px;
+  background: rgba(10, 32, 54, 0.18);
+}
+
+.appTrash {
+  background: radial-gradient(circle at 50% 30%, #F2F5F8, #CBD5DF);
+}
+
+.appTrash::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 12px;
+  bottom: 9px;
+  border-radius: 3px 3px 5px 5px;
+  background:
+    linear-gradient(#9FAEBC, #9FAEBC) 50% 0 / 100% 3px no-repeat,
+    linear-gradient(90deg, transparent 3px, #8B9BAA 3px 5px, transparent 5px 8px, #8B9BAA 8px 10px, transparent 10px 13px, #8B9BAA 13px 15px, transparent 15px) 0 5px / 100% 100% no-repeat,
+    #B7C3CE;
+}
+
+/* ── Scroll cue ──────────────────────────────────────────────────────────── */
+.scrollCue {
+  position: absolute;
+  right: clamp(1.25rem, 3vw, 2.5rem);
+  bottom: 1.9rem;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(10, 32, 54, 0.55);
+}
+
+.scrollLine {
+  width: 2.6rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-dim), transparent);
+}
+
+/* ── Motion preferences ──────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .floatInner {
+    animation: none;
+  }
+  .captionDot {
+    animation: none;
+  }
+  .float {
+    transform: none;
+  }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 1080px) {
+  .posIcFigma   { right: 26%; top: 15%; }
+  .posIcNotion  { right: 15%; top: 26%; }
+  .posIcSpotify { right: 18%; top: 50%; }
+  .posIcGithub  { left: 22%; top: 12%; }
+  .posIcVscode  { left: 16%; top: 45%; }
+  .posPolaroid  { right: 12%; }
+}
+
+@media (max-width: 760px) {
+  .ghostCalendar,
+  .toolbar,
+  .posPolaroid,
+  .posIcSpotify,
+  .posIcVscode {
+    display: none;
+  }
+
+  .ghostName {
+    font-size: 15rem;
+    left: -2vw;
+  }
+
+  .caption {
+    top: 4.2rem;
+    letter-spacing: 0.26em;
+    font-size: 0.6rem;
+  }
+
+  .portrait {
+    width: 118vw;
+    max-width: none;
+    height: 74svh;
+  }
+
+  .posBrowser { left: -1.25rem; top: 15%; }
+  .browserCard { width: 168px; }
+  .tile { height: 32px; }
+
+  .posPortal { left: 0.5rem; top: 60%; }
+  .portalCard { width: 138px; padding: 20px 12px 16px; }
+
+  .posFocus { right: -0.75rem; top: 10%; }
+  .focusPanel { width: 196px; }
+
+  .posIcFigma  { right: 6%; top: 34%; }
+  .posIcNotion { right: 20%; top: 46%; }
+  .posIcTerm   { right: 4%;  top: 55%; }
+  .posIcGithub { left: 6%;   top: 40%; }
+
+  .posPoster { right: 0.75rem; top: 71%; }
+  .poster { width: 112px; padding: 14px 12px 12px; }
+  .poster p { font-size: 0.68rem; }
+
+  .chip { width: 40px; height: 40px; border-radius: 10px; }
+  .chipLabel { font-size: 0.52rem; }
+
+  .dock { gap: 8px; padding: 8px 10px; }
+  .dockApp { width: 34px; height: 34px; border-radius: 9px; }
+  .dockSep { height: 26px; }
+
+  .scrollCue { display: none; }
+}
