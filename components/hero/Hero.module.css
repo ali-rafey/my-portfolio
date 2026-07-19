@@ -114,6 +114,11 @@
   z-index: 2;
 }
 
+/* Cards the portrait overlaps (Behance, boards) — deepest floating layer. */
+.layerBack {
+  z-index: 1;
+}
+
 .floatLabel {
   display: block;
   margin-top: 7px;
@@ -125,9 +130,8 @@
 
 /* ── Behance card ────────────────────────────────────────────────────────── */
 .posBehance {
-  left: clamp(0.75rem, 6vw, 7rem);
-  top: 11%;
-  z-index: 1;
+  left: clamp(1rem, 11vw, 12rem);
+  top: 12%;
 }
 
 .behanceCard {
@@ -137,6 +141,12 @@
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 22px 48px -20px rgba(30, 36, 43, 0.45);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.posBehance:hover .behanceCard {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 58px -22px rgba(30, 36, 43, 0.55);
 }
 
 .behanceSidebar {
@@ -220,9 +230,8 @@
 
 /* ── Pinterest boards card ───────────────────────────────────────────────── */
 .posBoards {
-  left: clamp(0.25rem, 3.5vw, 4.5rem);
-  top: 33%;
-  z-index: 1;
+  left: clamp(0.5rem, 5vw, 6rem);
+  top: 35%;
 }
 
 .boardsCard {
@@ -234,6 +243,12 @@
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 22px 48px -20px rgba(30, 36, 43, 0.45);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.posBoards:hover .boardsCard {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 58px -22px rgba(30, 36, 43, 0.55);
 }
 
 .boardThumb {
@@ -247,7 +262,7 @@
 .ghostCalendar {
   position: absolute;
   left: clamp(0.75rem, 4vw, 5rem);
-  top: 56%;
+  top: 60%;
   z-index: 0;
   color: rgba(255, 255, 255, 0.9);
   pointer-events: none;
@@ -296,8 +311,16 @@
 
 /* ── Notification stack ──────────────────────────────────────────────────── */
 .posNotif {
-  right: clamp(0.5rem, 5vw, 6rem);
+  right: clamp(0.5rem, 6vw, 7rem);
   top: 7%;
+}
+
+.notifPanel {
+  transition: transform 0.35s var(--ease);
+}
+
+.notifPanel:hover {
+  transform: translateX(-6px);
 }
 
 .notifStack {
@@ -404,19 +427,21 @@
   font-weight: 700;
 }
 
-.posGmail    { left: 58.5%; top: 9%; }
-.posSlack    { left: 67%; top: 17%; }
-.posNotion   { left: 61%; top: 23%; }
-.posWhatsApp { left: 66.5%; top: 31%; }
-.posSpotify  { left: 62%; top: 45%; }
+.posGmail    { left: 63%; top: 5.5%; }
+.posSlack    { left: 70.5%; top: 13%; }
+.posNotion   { left: 66%; top: 22%; }
+.posWhatsApp { left: 72%; top: 30%; }
+.posSpotify  { left: 65.5%; top: 42%; }
 
-.posClaude   { left: 32%; top: 12%; }
-.posGithub   { left: 26%; top: 24%; }
-.posLinkedin { left: 31.5%; top: 37%; }
+.posClaude    { left: 29.5%; top: 8%; }
+.posGithub    { left: 24%; top: 27%; }
+.posLinkedin  { left: 29%; top: 38%; }
+.posDiscord   { left: 23%; top: 49%; }
+.posPinterest { left: 28.5%; top: 59%; }
 
 /* ── Shoulder cluster ────────────────────────────────────────────────────── */
 .posIdCard {
-  left: 63.5%;
+  left: 61%;
   top: 60%;
   z-index: 5;
 }
@@ -428,6 +453,11 @@
   border-radius: 6px;
   box-shadow: 0 16px 36px -14px rgba(30, 36, 43, 0.5);
   transform: rotate(-2deg);
+  transition: transform 0.35s var(--ease);
+}
+
+.posIdCard:hover .idCard {
+  transform: rotate(0deg) translateY(-4px);
 }
 
 .idPhoto {
@@ -441,8 +471,8 @@
 }
 
 .posSms {
-  left: 70%;
-  top: 52%;
+  left: 69%;
+  top: 53%;
   z-index: 5;
 }
 
@@ -453,6 +483,11 @@
   border-radius: 8px;
   box-shadow: 0 16px 36px -14px rgba(20, 24, 30, 0.6);
   transform: rotate(2deg);
+  transition: transform 0.35s var(--ease);
+}
+
+.posSms:hover .smsCard {
+  transform: rotate(0deg) translateY(-4px);
 }
 
 .smsLine {
@@ -479,8 +514,8 @@
 }
 
 .posPoster {
-  left: 65.5%;
-  top: 65%;
+  left: 64%;
+  top: 66%;
   z-index: 5;
 }
 
@@ -495,6 +530,15 @@
     linear-gradient(160deg, #47698F 0%, #35516F 100%);
   box-shadow: 0 20px 44px -18px rgba(30, 36, 43, 0.55);
   transform: rotate(3deg);
+  transition: transform 0.35s var(--ease);
+}
+
+.posPoster:hover .chainCard {
+  transform: rotate(1deg) translateY(-4px);
+}
+
+.posPoster:hover .poster {
+  transform: rotate(-1deg);
 }
 
 .poster {
@@ -507,6 +551,7 @@
   border-radius: 3px;
   box-shadow: 0 14px 30px -12px rgba(160, 55, 12, 0.6);
   transform: rotate(-3deg);
+  transition: transform 0.35s var(--ease);
 }
 
 .poster p {
@@ -530,7 +575,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
-  width: min(76svh, 92vw);
+  width: min(78svh, 90vw);
   aspect-ratio: 849 / 927;
   background-image: url('/ali.png');
   background-size: contain;
@@ -623,67 +668,6 @@
   border-radius: 0 0 12px 12px;
 }
 
-.appCompass {
-  background: radial-gradient(circle at 50% 40%, #F4F8FC 0%, #DCE6F0 58%, #B9CBDD 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.needle {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 13px solid #E24A4A;
-  position: relative;
-  transform: rotate(42deg);
-}
-
-.needle::after {
-  content: '';
-  position: absolute;
-  top: 13px;
-  left: -5px;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 13px solid #fff;
-}
-
-.appNotes {
-  background: linear-gradient(180deg, #F7D774 24%, #fff 24%);
-}
-
-.appNotes::after {
-  content: '';
-  position: absolute;
-  left: 8px;
-  right: 8px;
-  top: 19px;
-  height: 14px;
-  background:
-    linear-gradient(#D7DCE2, #D7DCE2) 0 0 / 100% 2px no-repeat,
-    linear-gradient(#D7DCE2, #D7DCE2) 0 6px / 78% 2px no-repeat,
-    linear-gradient(#D7DCE2, #D7DCE2) 0 12px / 88% 2px no-repeat;
-}
-
-.appPhotos {
-  background: #fff;
-}
-
-.petalA, .petalB, .petalC, .petalD {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-radius: 50% 50% 50% 4px;
-  opacity: 0.9;
-}
-
-.petalA { top: 6px;  left: 14px; background: #F5C33B; transform: rotate(45deg); }
-.petalB { top: 14px; right: 6px; background: #E2574C; transform: rotate(135deg); }
-.petalC { bottom: 6px; right: 14px; background: #7CB94F; transform: rotate(225deg); }
-.petalD { bottom: 14px; left: 6px; background: #3E8DDD; transform: rotate(315deg); }
-
 .appFigma {
   background: #1E1E1E;
   display: flex;
@@ -691,53 +675,42 @@
   justify-content: center;
 }
 
-.appFolder {
-  background: linear-gradient(180deg, #8FC3F0 0%, #5BA3E4 100%);
-}
-
-.appFolder::before {
-  content: '';
-  position: absolute;
-  top: 8px;
-  left: 6px;
-  width: 15px;
-  height: 5px;
-  border-radius: 3px 3px 0 0;
-  background: #7CB6EC;
-}
-
-.appFolder::after {
-  content: '';
-  position: absolute;
-  top: 12px;
-  left: 6px;
-  right: 6px;
-  bottom: 8px;
-  border-radius: 4px;
-  background: linear-gradient(180deg, #BBDBF7, #92C2EE);
-}
-
-.appSettings {
-  background: radial-gradient(circle at 50% 35%, #F0F3F6, #C6CFD8);
+/* Ali's own apps — real icon files on white tiles, with a tooltip that pops
+   above the hovered tile only. */
+.dockReal {
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
-.gear {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 3.5px dashed #6E7B88;
-  position: relative;
+.dockReal img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
 }
 
-.gear::after {
-  content: '';
+.dockTip {
   position: absolute;
-  inset: 4px;
-  border-radius: 50%;
-  border: 2.5px solid #6E7B88;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 4px 9px;
+  border-radius: 7px;
+  background: rgba(28, 32, 38, 0.92);
+  color: #F2F5F9;
+  font-size: 0.58rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+.dockReal:hover .dockTip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .dockSep {
@@ -789,7 +762,9 @@
   .ghostCalendar,
   .posClaude,
   .posGithub,
-  .posLinkedin {
+  .posLinkedin,
+  .posDiscord,
+  .posPinterest {
     display: none;
   }
 
@@ -805,7 +780,7 @@
   }
 
   .portrait {
-    width: min(70svh, 126vw);
+    width: min(78svh, 138vw);
     max-width: none;
   }
 
@@ -831,24 +806,26 @@
 
   .appChip { width: 42px; height: 42px; border-radius: 11px; }
   .appChip img { width: 24px; height: 24px; }
-  .posGmail    { left: 56%; top: 24%; }
-  .posSlack    { left: 74%; top: 30%; }
-  .posNotion   { left: 52%; top: 36%; }
-  .posWhatsApp { left: 75%; top: 42%; }
-  .posSpotify  { left: 55%; top: 50%; }
+  .posGmail    { left: 55%; top: 20%; }
+  .posSlack    { left: 75%; top: 26%; }
+  .posNotion   { left: 51%; top: 33%; }
+  .posWhatsApp { left: 76%; top: 39%; }
+  .posSpotify  { left: 55%; top: 47%; }
 
-  .posIdCard { left: 38%; top: 62%; }
+  .posIdCard { left: 36%; top: 61%; }
   .idCard    { width: 66px; }
   .idPhoto   { height: 72px; }
-  .posSms    { left: 58%; top: 58%; }
+  .posSms    { left: 57%; top: 57%; }
   .smsCard   { width: 88px; padding: 10px 9px 7px; }
   .smsLine, .smsLineDim { font-size: 0.52rem; }
-  .posPoster { left: 50%; top: 70%; }
+  .posPoster { left: 48%; top: 69%; }
   .chainCard { width: 112px; height: 118px; }
   .poster    { width: 84px; padding: 9px 8px 10px; }
   .poster p  { font-size: 0.5rem; }
 
   .dock { gap: 6px; padding: 6px 9px; bottom: 1rem; }
   .dockApp { width: 33px; height: 33px; border-radius: 8px; }
+  .dockReal img { width: 20px; height: 20px; }
+  .appFinder, .appFigma { display: none; }
   .dockSep { height: 24px; }
 }

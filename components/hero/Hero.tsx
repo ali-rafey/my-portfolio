@@ -35,6 +35,17 @@ const LEFT_ICONS = [
   { label: 'Claude', src: '/icons/claude.webp', cls: 'posClaude', behind: false },
   { label: 'GitHub', src: '/icons/github.webp', cls: 'posGithub', behind: false },
   { label: 'LinkedIn', src: '/icons/linkedin.webp', cls: 'posLinkedin', behind: false },
+  { label: 'Discord', src: '/icons/discord.webp', cls: 'posDiscord', behind: false },
+  { label: 'Pinterest', src: '/icons/pinterest.webp', cls: 'posPinterest', behind: false },
+] as const;
+
+// The rest of Ali's icons live in the dock — his personal app row.
+const DOCK_ICONS = [
+  { label: 'Medium', src: '/icons/medium.webp' },
+  { label: 'Reddit', src: '/icons/reddit.png' },
+  { label: 'Twitter', src: '/icons/twitter.webp' },
+  { label: 'X', src: '/icons/x.webp' },
+  { label: 'Buy Me a Coffee', src: '/icons/coffee.webp' },
 ] as const;
 
 const BOARD_IMAGES = ['b-01', 'b-02', 'b-03', 'b-05', 'b-08', 'b-13'] as const;
@@ -89,7 +100,7 @@ export default function Hero() {
 
       {/* ── Left column ─────────────────────────────────────────────────── */}
 
-      <Float className={styles.posBehance}>
+      <Float className={`${styles.posBehance} ${styles.layerBack}`}>
         <div className={styles.behanceCard}>
           <div className={styles.behanceSidebar}>
             <span className={styles.behanceAvatar} />
@@ -114,7 +125,7 @@ export default function Hero() {
         <span className={styles.floatLabel}>Behance portfolio</span>
       </Float>
 
-      <Float className={styles.posBoards}>
+      <Float className={`${styles.posBoards} ${styles.layerBack}`}>
         <div className={styles.boardsCard}>
           {BOARD_IMAGES.slice()
             .reverse()
@@ -252,20 +263,12 @@ export default function Hero() {
         </svg>
       </div>
 
-      <div className={styles.dock} aria-hidden="true">
-        <span className={`${styles.dockApp} ${styles.appFinder}`} />
-        <span className={`${styles.dockApp} ${styles.appCompass}`}>
-          <span className={styles.needle} />
-        </span>
-        <span className={`${styles.dockApp} ${styles.appNotes}`} />
-        <span className={`${styles.dockApp} ${styles.appPhotos}`}>
-          <span className={styles.petalA} />
-          <span className={styles.petalB} />
-          <span className={styles.petalC} />
-          <span className={styles.petalD} />
-        </span>
-        <span className={`${styles.dockApp} ${styles.appFigma}`}>
-          <svg viewBox="0 0 24 36" width="13" aria-hidden="true">
+      {/* Dock — Finder + Figma keep the macOS feel; the rest are Ali's own
+          apps, each with a tooltip label on hover. */}
+      <div className={styles.dock}>
+        <span className={`${styles.dockApp} ${styles.appFinder}`} aria-hidden="true" />
+        <span className={`${styles.dockApp} ${styles.appFigma}`} aria-hidden="true">
+          <svg viewBox="0 0 24 36" width="13">
             <path d="M6 0h6v12H6a6 6 0 0 1 0-12Z" fill="#F24E1E" />
             <path d="M12 0h6a6 6 0 0 1 0 12h-6V0Z" fill="#FF7262" />
             <path d="M6 12h6v12H6a6 6 0 0 1 0-12Z" fill="#A259FF" />
@@ -273,12 +276,15 @@ export default function Hero() {
             <path d="M6 24h6v6a6 6 0 1 1-6-6Z" fill="#0ACF83" />
           </svg>
         </span>
-        <span className={`${styles.dockApp} ${styles.appFolder}`} />
-        <span className={`${styles.dockApp} ${styles.appSettings}`}>
-          <span className={styles.gear} />
-        </span>
-        <span className={styles.dockSep} />
-        <span className={`${styles.dockApp} ${styles.appTrash}`} />
+        {DOCK_ICONS.map((d) => (
+          <span key={d.label} className={`${styles.dockApp} ${styles.dockReal}`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={d.src} alt={d.label} width={26} height={26} />
+            <span className={styles.dockTip}>{d.label}</span>
+          </span>
+        ))}
+        <span className={styles.dockSep} aria-hidden="true" />
+        <span className={`${styles.dockApp} ${styles.appTrash}`} aria-hidden="true" />
       </div>
     </section>
   );
