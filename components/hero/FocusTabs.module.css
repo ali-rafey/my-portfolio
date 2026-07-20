@@ -1,0 +1,134 @@
+/* Three Focus tabs stacked in ONE column over the head, styled after the iOS
+   Focus sheet. Each is a frosted capsule: icon left, title + subtitle centred,
+   "···" right. The active pill brightens and gets a soft glowing rainbow edge. */
+
+.stack {
+  position: absolute;
+  left: 50%;
+  top: 8.5%;
+  transform: translateX(-50%);
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: clamp(186px, 14.5vw, 212px);
+}
+
+.tab {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20px 1fr 16px;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 21px;
+  background: rgba(48, 50, 56, 0.86);
+  color: #EAEDF1;
+  cursor: pointer;
+  font: inherit;
+  box-shadow:
+    0 12px 26px -14px rgba(12, 14, 18, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  transition:
+    background 0.45s ease,
+    transform 0.5s cubic-bezier(0.34, 1.5, 0.6, 1),
+    box-shadow 0.5s ease,
+    border-color 0.4s ease;
+}
+
+.tab:hover {
+  background: rgba(60, 62, 69, 0.9);
+}
+
+.tab.on {
+  background: rgba(70, 72, 79, 0.94);
+  border-color: rgba(255, 255, 255, 0.24);
+  transform: scale(1.035);
+  box-shadow:
+    0 18px 34px -16px rgba(12, 14, 18, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: #F3F5F8;
+}
+
+.icon svg { width: 15px; height: 15px; }
+
+.tab.on .icon_dnd { animation: moonGlow 2.6s ease-in-out infinite; border-radius: 50%; }
+.tab.on .icon_work { animation: workBounce 0.6s cubic-bezier(0.34, 1.7, 0.5, 1); }
+.tab.on .icon_focus .focusRing { animation: focusPulse 1.8s ease-in-out infinite; transform-origin: center; }
+
+@keyframes moonGlow {
+  0%, 100% { box-shadow: 0 0 0 rgba(255, 255, 255, 0); }
+  50% { box-shadow: 0 0 13px 1px rgba(255, 255, 255, 0.55); }
+}
+@keyframes workBounce {
+  0% { transform: translateY(0) rotate(0); }
+  35% { transform: translateY(-4px) rotate(-8deg); }
+  70% { transform: translateY(1px) rotate(4deg); }
+  100% { transform: translateY(0) rotate(0); }
+}
+@keyframes focusPulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.14); }
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  text-align: center;
+}
+
+.label {
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.status {
+  margin-top: 0.5px;
+  font-size: 0.56rem;
+  font-weight: 500;
+  line-height: 1.15;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+}
+
+.tab.on .status {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.dots {
+  justify-self: end;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab, .icon { transition: none; }
+  .tab.on::before, .tab.on::after,
+  .tab.on .icon_dnd, .tab.on .icon_work,
+  .tab.on .icon_focus .focusRing { animation: none; }
+}
+
+@media (max-width: 760px) {
+  .stack { top: 3.5%; width: 232px; gap: 7px; }
+  .tab { min-height: 48px; padding: 7px 13px; }
+  .label { font-size: 0.8rem; }
+}
