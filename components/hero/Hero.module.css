@@ -797,6 +797,15 @@
   justify-content: center;
 }
 
+/* Ali's own brand tiles in the dock. */
+.appEscaleads {
+  background: #fff url('/dock-escaleads.png') center / 82% no-repeat;
+}
+
+.appFanar {
+  background: #fff url('/dock-fanar.png') center / 84% no-repeat;
+}
+
 .appFolder {
   background: linear-gradient(180deg, #8FC3F0 0%, #5BA3E4 100%);
 }

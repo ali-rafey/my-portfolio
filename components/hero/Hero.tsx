@@ -145,18 +145,11 @@ export default function Hero() {
       {/* ── Portrait (cutout) ───────────────────────────────────────────── */}
       <div className={styles.portrait} role="img" aria-label="Portrait of Ali" />
 
-      {/* Dock — four apps only. */}
+      {/* Dock — four tiles: Finder · Fanar · Escaleads · Figma. */}
       <div className={styles.dock} aria-hidden="true">
         <span className={`${styles.dockApp} ${styles.appFinder}`} />
-        <span className={`${styles.dockApp} ${styles.appCompass}`}>
-          <span className={styles.needle} />
-        </span>
-        <span className={`${styles.dockApp} ${styles.appPhotos}`}>
-          <span className={styles.petalA} />
-          <span className={styles.petalB} />
-          <span className={styles.petalC} />
-          <span className={styles.petalD} />
-        </span>
+        <span className={`${styles.dockApp} ${styles.appFanar}`} />
+        <span className={`${styles.dockApp} ${styles.appEscaleads}`} />
         <span className={`${styles.dockApp} ${styles.appFigma}`}>
           <svg viewBox="0 0 24 36" width="13" aria-hidden="true">
             <path d="M6 0h6v12H6a6 6 0 0 1 0-12Z" fill="#F24E1E" />
