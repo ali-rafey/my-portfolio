@@ -4,7 +4,7 @@ import FocusTabs from './FocusTabs';
 // =============================================================================
 // Hero — "productivity mode" poster, inspired by the reference, starring Ali.
 // =============================================================================
-// Ali's cutout portrait (public/ali-222.png) stands centre on a silver wall.
+// Ali's cutout portrait (public/ali-222.webp) stands centre on a silver wall.
 // Around him:
 //   top-left     Behance-style portfolio card           (label: Behance portfolio)
 //   over-head    <FocusTabs/> — three interactive iOS-style Focus tabs
@@ -34,7 +34,7 @@ const ICONS: Icon[] = [
   { label: 'Discord', src: '/icons/discord.webp', cls: 'i3' },
   { label: 'LinkedIn', src: '/icons/linkedin.webp', cls: 'i4' },
   { label: 'Instagram', src: '/icons/instagram.svg', cls: 'i5' },
-  { label: 'Reddit', src: '/icons/reddit.png', cls: 'i6' },
+  { label: 'Reddit', src: '/icons/reddit.webp', cls: 'i6' },
   { label: 'Medium', src: '/icons/medium.webp', cls: 'i7' },
   { label: 'Buy Me a Coffee', src: '/icons/coffee.webp', cls: 'i8' },
 ];
@@ -98,7 +98,7 @@ export default function Hero() {
               <span
                 key={b}
                 className={styles.behanceThumb}
-                style={{ backgroundImage: `url('/boards/${b}.jpeg')` }}
+                style={{ backgroundImage: `url('/boards/${b}.webp')` }}
               />
             ))}
             <span className={styles.behanceTag}>Media</span>

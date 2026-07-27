@@ -176,7 +176,7 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background-image: url('/ali-raw.jpeg');
+  background-image: url('/ali-raw.webp');
   background-size: 165%;
   background-position: 50% 14%;
   background-color: #F2F2F0;
@@ -524,7 +524,7 @@
   display: block;
   height: 92px;
   border-radius: 3px;
-  background-image: url('/ali-raw.jpeg');
+  background-image: url('/ali-raw.webp');
   background-size: 128%;
   background-position: 50% 10%;
   background-color: #F2F2F0;
@@ -637,7 +637,7 @@
   z-index: 3;
   width: clamp(460px, 40vw, 600px);
   aspect-ratio: 1042 / 934;
-  background-image: url('/ali-222.png');
+  background-image: url('/ali-222.webp');
   background-size: contain;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -799,11 +799,11 @@
 
 /* Ali's own brand tiles in the dock. */
 .appEscaleads {
-  background: #fff url('/dock-escaleads.png') center / 82% no-repeat;
+  background: #fff url('/dock-escaleads.webp') center / 82% no-repeat;
 }
 
 .appFanar {
-  background: #fff url('/dock-fanar.png') center / 84% no-repeat;
+  background: #fff url('/dock-fanar.webp') center / 84% no-repeat;
 }
 
 .appFolder {

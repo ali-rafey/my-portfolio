@@ -32,6 +32,13 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+      <head>
+        {/* The portrait is the hero's largest element, but it's a CSS
+            background — the browser can't discover it until the stylesheet is
+            parsed. Preloading starts the download alongside the HTML so it
+            paints with the rest of the page instead of popping in after it. */}
+        <link rel="preload" as="image" href="/ali-222.webp" fetchPriority="high" />
+      </head>
       <body>{children}</body>
     </html>
   );
