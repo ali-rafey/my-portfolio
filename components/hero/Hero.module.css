@@ -943,30 +943,45 @@
 }
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+/* Tablet — pull the icon columns in as the frame narrows. */
 @media (max-width: 1100px) {
-  .posGmail    { left: 60%; }
-  .posSlack    { left: 70%; }
-  .posNotion   { left: 57%; }
-  .posWhatsApp { left: 68%; }
-  .posSpotify  { left: 58.5%; }
-  .posIdCard   { left: 58%; }
-  .posSms      { left: 70%; }
-  .posPoster   { left: 63%; }
+  .i1 { left: 58%; }
+  .i2 { left: 69%; }
+  .i3 { left: 59%; }
+  .i4 { left: 70%; }
+  .posSms { left: 58%; }
 }
 
-@media (max-width: 760px) {
-  .toolbar,
+/* Phones and portrait tablets — a landscape composition can't just shrink: on a
+   tall narrow screen the percentage positions all land on his face. Rebuilt as
+   a vertical stack — caption, tabs, portrait — with the eight icons in two
+   columns down the outer edges, clear of the head. The decorative cards step
+   aside; there's no room for them. Landscape tablets keep the desktop layout,
+   which is what its proportions were designed for. */
+@media (max-width: 760px), (max-width: 1100px) and (orientation: portrait) {
+  .posBehance,
   .ghostCalendar,
-  .posClaude,
-  .posGithub,
-  .posLinkedin,
-  .posDiscord,
-  .posPinterest {
+  .posSms {
     display: none;
   }
 
   .ghostName {
-    font-size: 13rem;
+    font-size: 9rem;
+    left: -4vw;
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .topbar {
+    padding: 1rem 1.1rem;
+  }
+
+  .wordmark {
+    font-size: 1.05rem;
+  }
+
+  .topLink {
+    font-size: 0.62rem;
   }
 
   /* Sits above the mode tabs, which start at 3.6rem on small screens. */
@@ -977,53 +992,63 @@
     z-index: 8;
   }
 
+  /* Bleeds past both edges so he fills the frame rather than sitting small and
+     low with dead space above him. */
   .portrait {
-    width: min(78svh, 138vw);
+    width: min(148vw, 700px);
     max-width: none;
   }
 
-  .floatLabel {
-    font-size: 0.54rem;
-    margin-top: 5px;
+  .appChip {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
   }
 
-  .posBehance { left: -2.25rem; top: 13%; }
-  .behanceCard { width: 188px; }
-  .behanceSidebar { width: 52px; padding: 8px 7px; }
-  .behanceThumb { height: 30px; }
+  .appChip img {
+    width: 24px;
+    height: 24px;
+  }
 
-  .posBoards { left: -1.75rem; top: 34%; }
-  .boardsCard { grid-template-columns: repeat(3, 46px); }
-  .boardThumb { height: 40px; }
+  /* Two columns hugging the outer edges, four rows each, spanning the band
+     between the tabs and the dock. */
+  /* The tab stack is a fixed height, so on short viewports a purely
+     percentage-based first row rides up into it — the max() gives every row a
+     floor that clears the tabs no matter how short the screen is. */
+  .i1 { left: 3%; top: max(31%, 248px); }
+  .i2 { left: 76%; top: max(31%, 248px); }
+  .i3 { left: 3%; top: max(42%, 312px); }
+  .i4 { left: 76%; top: max(42%, 312px); }
+  .i5 { left: 3%; top: max(53%, 376px); }
+  .i6 { left: 76%; top: max(53%, 376px); }
+  .i7 { left: 3%; top: max(64%, 440px); }
+  .i8 { left: 76%; top: max(64%, 440px); }
 
-  .posNotif { right: -3.25rem; top: 9%; }
-  .notifStack { width: 184px; }
-  .notifPanel { padding: 8px 10px; border-radius: 12px; }
-  .notifTitle { font-size: 0.6rem; }
-  .notifSub { font-size: 0.5rem; }
+  .dock {
+    gap: 7px;
+    padding: 6px 9px;
+    bottom: 1.1rem;
+  }
 
-  .appChip { width: 42px; height: 42px; border-radius: 11px; }
-  .appChip img { width: 24px; height: 24px; }
-  .posGmail    { left: 55%; top: 20%; }
-  .posSlack    { left: 75%; top: 26%; }
-  .posNotion   { left: 51%; top: 33%; }
-  .posWhatsApp { left: 76%; top: 39%; }
-  .posSpotify  { left: 55%; top: 47%; }
+  .dockApp {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+}
 
-  .posIdCard { left: 36%; top: 61%; }
-  .idCard    { width: 66px; }
-  .idPhoto   { height: 72px; }
-  .posSms    { left: 57%; top: 57%; }
-  .smsCard   { width: 88px; padding: 10px 9px 7px; }
-  .smsLine, .smsLineDim { font-size: 0.52rem; }
-  .posPoster { left: 48%; top: 69%; }
-  .chainCard { width: 112px; height: 118px; }
-  .poster    { width: 84px; padding: 9px 8px 10px; }
-  .poster p  { font-size: 0.5rem; }
+/* Very small phones — tighten the columns so nothing touches the edge. */
+@media (max-width: 380px) {
+  .i1, .i3, .i5, .i7 { left: 1.5%; }
+  .i2, .i4, .i6, .i8 { left: 78%; }
 
-  .dock { gap: 6px; padding: 6px 9px; bottom: 1rem; }
-  .dockApp { width: 33px; height: 33px; border-radius: 8px; }
-  .dockReal img { width: 20px; height: 20px; }
-  .appFinder, .appFigma { display: none; }
-  .dockSep { height: 24px; }
+  .appChip {
+    width: 38px;
+    height: 38px;
+  }
+
+  .appChip img {
+    width: 22px;
+    height: 22px;
+  }
 }
