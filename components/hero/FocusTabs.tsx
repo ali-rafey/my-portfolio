@@ -1,25 +1,28 @@
 'use client';
 
-import { useState } from 'react';
 import styles from './FocusTabs.module.css';
+import type { ModeId } from './modes';
+import { MODES } from './modes';
 
-// Three Focus tabs stacked in one column over the head — styled after the iOS
+// Three mode tabs stacked in one column over the head — styled after the iOS
 // Focus sheet: capsule pills, icon left, title + subtitle centred, a "···" on
-// the right. Exactly one is active; the active pill lights up with a glowing
-// rainbow edge and plays its own little icon animation.
-type Mode = { id: string; label: string; status: string };
+// the right. Controlled: the parent owns which mode is active, because the
+// floating app icons change with it too.
 
-const MODES: Mode[] = [
-  { id: 'dnd', label: 'Do Not Disturb', status: 'Silence all notifications' },
-  { id: 'work', label: 'Work', status: 'Get things done' },
-  { id: 'focus', label: 'Focus', status: 'Deep work · 24:59' },
-];
-
-function Glyph({ id }: { id: string }) {
-  if (id === 'dnd') {
+function Glyph({ id }: { id: ModeId }) {
+  if (id === 'socials') {
     return (
       <svg viewBox="0 0 22 22" width="19" height="19" aria-hidden="true">
-        <path d="M18 13.6A7.2 7.2 0 0 1 8.4 4a7.2 7.2 0 1 0 9.6 9.6Z" fill="currentColor" />
+        <circle cx="11" cy="6.6" r="3.1" fill="currentColor" />
+        <circle cx="4.6" cy="15.2" r="2.6" fill="currentColor" />
+        <circle cx="17.4" cy="15.2" r="2.6" fill="currentColor" />
+        <path
+          d="M8.4 8.6 6.4 12.9M13.6 8.6l2 4.3M7.2 15.2h7.6"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
+        />
       </svg>
     );
   }
@@ -42,11 +45,15 @@ function Glyph({ id }: { id: string }) {
   );
 }
 
-export default function FocusTabs() {
-  const [active, setActive] = useState('work');
-
+export default function FocusTabs({
+  active,
+  onChange,
+}: {
+  active: ModeId;
+  onChange: (id: ModeId) => void;
+}) {
   return (
-    <div className={styles.stack} role="tablist" aria-label="Focus mode">
+    <div className={styles.stack} role="tablist" aria-label="Mode">
       {MODES.map((m) => {
         const on = active === m.id;
         return (
@@ -56,7 +63,7 @@ export default function FocusTabs() {
             aria-selected={on}
             aria-label={m.label}
             className={`${styles.tab} ${on ? styles.on : ''}`}
-            onClick={() => setActive(m.id)}
+            onClick={() => onChange(m.id)}
           >
             <span className={`${styles.icon} ${styles[`icon_${m.id}`]}`}>
               <Glyph id={m.id} />

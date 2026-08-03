@@ -1,5 +1,5 @@
 import styles from './Hero.module.css';
-import FocusTabs from './FocusTabs';
+import FocusStage from './FocusStage';
 
 // =============================================================================
 // Hero — "productivity mode" poster, inspired by the reference, starring Ali.
@@ -22,35 +22,7 @@ function Float({ className, children }: { className: string; children: React.Rea
   return <div className={`${styles.float} ${className}`}>{children}</div>;
 }
 
-// ── App icons ───────────────────────────────────────────────────────────────
-// Exactly like the reference: a single loose arc of app icons hugging the right
-// of the head, each a white rounded chip with its label beneath. No grouping —
-// `cls` places each one along the arc.
-type Icon = { label: string; src: string; cls: string };
-
-const ICONS: Icon[] = [
-  { label: 'Slack', src: '/icons/slack.webp', cls: 'i1' },
-  { label: 'WhatsApp', src: '/icons/whatsapp.webp', cls: 'i2' },
-  { label: 'Discord', src: '/icons/discord.webp', cls: 'i3' },
-  { label: 'LinkedIn', src: '/icons/linkedin.webp', cls: 'i4' },
-  { label: 'Instagram', src: '/icons/instagram.svg', cls: 'i5' },
-  { label: 'Reddit', src: '/icons/reddit.webp', cls: 'i6' },
-  { label: 'Medium', src: '/icons/medium.webp', cls: 'i7' },
-  { label: 'Buy Me a Coffee', src: '/icons/coffee.webp', cls: 'i8' },
-];
-
 const BOARD_IMAGES = ['b-01', 'b-02', 'b-03', 'b-05', 'b-08', 'b-13'] as const;
-
-function IconFloat({ icon }: { icon: Icon }) {
-  return (
-    <div className={`${styles.iconFloat} ${styles[icon.cls]}`}>
-      <div className={styles.appChip}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={icon.src} alt={icon.label} width={30} height={30} />
-      </div>
-    </div>
-  );
-}
 
 export default function Hero() {
   return (
@@ -123,13 +95,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Focus tabs — interactive, floating above the head ───────────── */}
-      <FocusTabs />
-
-      {/* ── App icons — two clusters (top-right of head + lower-left) ────── */}
-      {ICONS.map((ic) => (
-        <IconFloat key={ic.label} icon={ic} />
-      ))}
+      {/* ── Mode tabs + the app icons they swap in ──────────────────────── */}
+      <FocusStage />
 
       {/* ── Samsung note ────────────────────────────────────────────────── */}
 

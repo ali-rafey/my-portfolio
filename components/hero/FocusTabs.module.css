@@ -62,13 +62,14 @@
 
 .icon svg { width: 15px; height: 15px; }
 
-.tab.on .icon_dnd { animation: moonGlow 2.6s ease-in-out infinite; border-radius: 50%; }
+.tab.on .icon_socials { animation: socialsPing 2.4s ease-in-out infinite; }
 .tab.on .icon_work { animation: workBounce 0.6s cubic-bezier(0.34, 1.7, 0.5, 1); }
 .tab.on .icon_focus .focusRing { animation: focusPulse 1.8s ease-in-out infinite; transform-origin: center; }
 
-@keyframes moonGlow {
-  0%, 100% { box-shadow: 0 0 0 rgba(255, 255, 255, 0); }
-  50% { box-shadow: 0 0 13px 1px rgba(255, 255, 255, 0.55); }
+@keyframes socialsPing {
+  0%, 100% { transform: scale(1); }
+  42% { transform: scale(1.14); }
+  60% { transform: scale(0.97); }
 }
 @keyframes workBounce {
   0% { transform: translateY(0) rotate(0); }
@@ -123,7 +124,7 @@
 @media (prefers-reduced-motion: reduce) {
   .tab, .icon { transition: none; }
   .tab.on::before, .tab.on::after,
-  .tab.on .icon_dnd, .tab.on .icon_work,
+  .tab.on .icon_socials, .tab.on .icon_work,
   .tab.on .icon_focus .focusRing { animation: none; }
 }
 
