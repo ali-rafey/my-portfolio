@@ -29,7 +29,7 @@ export const MODES: Mode[] = [
     label: 'Work',
     status: 'Get things done',
     accent: '#F5A03C',
-    caption: 'Productivity mode',
+    caption: 'Work mode',
   },
   {
     id: 'focus',
