@@ -63,6 +63,7 @@ export default function FocusTabs({
             aria-selected={on}
             aria-label={m.label}
             className={`${styles.tab} ${on ? styles.on : ''}`}
+            style={{ ['--accent' as string]: m.accent }}
             onClick={() => onChange(m.id)}
           >
             <span className={`${styles.icon} ${styles[`icon_${m.id}`]}`}>

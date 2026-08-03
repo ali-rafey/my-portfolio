@@ -51,13 +51,27 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
+/* Inactive glyphs sit back in muted grey; the active one lights up in its
+   mode's accent colour and casts a soft glow of the same hue. */
 .icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 20px;
   height: 20px;
-  color: #F3F5F8;
+  color: #838A93;
+  transition: color 0.4s ease, filter 0.4s ease, transform 0.4s var(--ease);
+}
+
+.tab:hover .icon {
+  color: #C3C9D1;
+}
+
+.tab.on .icon {
+  color: var(--accent);
+  filter:
+    drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 75%, transparent))
+    drop-shadow(0 0 11px color-mix(in srgb, var(--accent) 45%, transparent));
 }
 
 .icon svg { width: 15px; height: 15px; }
@@ -129,7 +143,7 @@
 }
 
 @media (max-width: 760px) {
-  .stack { top: 3.5%; width: 232px; gap: 7px; }
+  .stack { top: 3.6rem; width: 232px; gap: 7px; }
   .tab { min-height: 48px; padding: 7px 13px; }
   .label { font-size: 0.8rem; }
 }

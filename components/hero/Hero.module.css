@@ -111,6 +111,28 @@
   white-space: nowrap;
 }
 
+/* The caption is re-keyed per mode, so it fades in on each switch. */
+.captionSwap {
+  animation: captionSwapIn 0.45s ease both;
+}
+
+@keyframes captionSwapIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .captionSwap {
+    animation: none;
+  }
+}
+
 .caption strong {
   font-weight: 800;
 }
@@ -947,8 +969,9 @@
     font-size: 13rem;
   }
 
+  /* Sits above the mode tabs, which start at 3.6rem on small screens. */
   .caption {
-    top: 3.6rem;
+    top: 1.5rem;
     font-size: 0.56rem;
     letter-spacing: 0.14em;
     z-index: 8;

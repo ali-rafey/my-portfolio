@@ -48,10 +48,6 @@ export default function Hero() {
         </a>
       </header>
 
-      <p className={styles.caption}>
-        <strong>Productivity mode</strong>&nbsp;activated
-      </p>
-
       {/* ── Left cards ──────────────────────────────────────────────────── */}
 
       <Float className={`${styles.posBehance} ${styles.layerBack}`}>

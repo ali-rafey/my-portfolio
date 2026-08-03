@@ -4,14 +4,40 @@
 
 export type ModeId = 'socials' | 'work' | 'focus';
 
-export type Mode = { id: ModeId; label: string; status: string };
+// `accent` lights up the tab's glyph while it's the active mode; `caption` is
+// the line that reads "<caption> activated" above the head.
+export type Mode = {
+  id: ModeId;
+  label: string;
+  status: string;
+  accent: string;
+  caption: string;
+};
 
 export type Icon = { label: string; src: string };
 
 export const MODES: Mode[] = [
-  { id: 'socials', label: 'Socials', status: 'Where I hang out' },
-  { id: 'work', label: 'Work', status: 'Get things done' },
-  { id: 'focus', label: 'Focus', status: 'Deep work · 24:59' },
+  {
+    id: 'socials',
+    label: 'Socials',
+    status: 'Where I hang out',
+    accent: '#FF6E8A',
+    caption: 'Social mode',
+  },
+  {
+    id: 'work',
+    label: 'Work',
+    status: 'Get things done',
+    accent: '#F5A03C',
+    caption: 'Productivity mode',
+  },
+  {
+    id: 'focus',
+    label: 'Focus',
+    status: 'Deep work · 24:59',
+    accent: '#3FD6A8',
+    caption: 'Focus mode',
+  },
 ];
 
 export const ICON_SETS: Record<ModeId, Icon[]> = {

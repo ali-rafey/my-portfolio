@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import FocusTabs from './FocusTabs';
-import { ICON_SETS, ALL_ICON_SRCS, type ModeId } from './modes';
+import { ICON_SETS, ALL_ICON_SRCS, MODES, type ModeId } from './modes';
 import styles from './Hero.module.css';
 
 // Owns the active mode, because two things depend on it: the tabs over the head
@@ -14,9 +14,15 @@ const SLOTS = ['i1', 'i2', 'i3', 'i4', 'i5', 'i6', 'i7', 'i8'] as const;
 export default function FocusStage() {
   const [mode, setMode] = useState<ModeId>('work');
   const icons = ICON_SETS[mode];
+  const current = MODES.find((m) => m.id === mode)!;
 
   return (
     <>
+      {/* Re-keyed so the caption cross-fades when the mode changes. */}
+      <p key={mode} className={`${styles.caption} ${styles.captionSwap}`}>
+        <strong>{current.caption}</strong>&nbsp;activated
+      </p>
+
       <FocusTabs active={mode} onChange={setMode} />
 
       {icons.map((icon, i) => (
