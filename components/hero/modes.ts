@@ -22,7 +22,7 @@ export const ICON_SETS: Record<ModeId, Icon[]> = {
     { label: 'LinkedIn', src: '/icons/linkedin.webp' },
     { label: 'Medium', src: '/icons/medium.webp' },
     { label: 'Discord', src: '/icons/discord.webp' },
-    { label: 'Patreon', src: '/icons/patreon.svg' },
+    { label: 'Patreon', src: '/icons/patreon.webp' },
     { label: 'Buy Me a Coffee', src: '/icons/coffee.webp' },
   ],
   work: [
