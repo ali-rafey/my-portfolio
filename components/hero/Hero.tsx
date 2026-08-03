@@ -1,5 +1,6 @@
 import styles from './Hero.module.css';
 import FocusStage from './FocusStage';
+import GhostCalendar from './GhostCalendar';
 
 // =============================================================================
 // Hero — "productivity mode" poster, inspired by the reference, starring Ali.
@@ -75,21 +76,7 @@ export default function Hero() {
         <span className={styles.floatLabel}>Behance portfolio</span>
       </Float>
 
-      <div className={styles.ghostCalendar} aria-hidden="true">
-        <p className={styles.calTitle}>18 july, friday</p>
-        <div className={styles.calGrid}>
-          {['s', 'm', 't', 'w', 't', 'f', 's'].map((d, i) => (
-            <span key={`d${i}`} className={styles.calHead}>
-              {d}
-            </span>
-          ))}
-          {Array.from({ length: 31 }, (_, i) => (
-            <span key={i} className={i + 1 === 18 ? styles.calToday : undefined}>
-              {i + 1}
-            </span>
-          ))}
-        </div>
-      </div>
+      <GhostCalendar />
 
       {/* ── Mode tabs + the app icons they swap in ──────────────────────── */}
       <FocusStage />
