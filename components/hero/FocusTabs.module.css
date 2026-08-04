@@ -143,7 +143,14 @@
 }
 
 @media (max-width: 760px) {
-  .stack { top: 3.6rem; width: 232px; gap: 7px; }
+  /* Sits below the intro copy on a phone. */
+  .stack { top: 10.4rem; width: 232px; gap: 7px; }
   .tab { min-height: 48px; padding: 7px 13px; }
   .label { font-size: 0.8rem; }
+}
+
+/* Short phones — pulled up to leave room for four icon rows above the dock. */
+@media (max-width: 760px) and (max-height: 720px) {
+  .stack { top: 8.6rem; gap: 6px; }
+  .tab { min-height: 44px; }
 }

@@ -76,6 +76,21 @@ export default function Hero() {
         <span className={styles.floatLabel}>Behance portfolio</span>
       </Float>
 
+      {/* ── Intro ───────────────────────────────────────────────────────── */}
+      <div className={styles.bio}>
+        <span className={styles.bioLabel}>
+          <span className={styles.bioDot} aria-hidden="true" />
+          about
+        </span>
+        <p className={styles.bioLead}>
+          I&apos;m <em>Ali</em>
+        </p>
+        <p className={styles.bioText}>
+          I help businesses step into the tech world — web platforms, automation,
+          and AI that actually ships.
+        </p>
+      </div>
+
       <GhostCalendar />
 
       {/* ── Mode tabs + the app icons they swap in ──────────────────────── */}

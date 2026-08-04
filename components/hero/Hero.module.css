@@ -293,6 +293,58 @@
   background-position: center;
 }
 
+/* ── Intro ───────────────────────────────────────────────────────────────── */
+/* Sits in the gap between the portfolio card and the calendar, on the quiet
+   side of the frame so it reads before the eye reaches the portrait. */
+.bio {
+  position: absolute;
+  left: 3%;
+  top: 33%;
+  z-index: 4;
+  max-width: 20rem;
+}
+
+.bioLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7A8189;
+}
+
+.bioDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+.bioLead {
+  margin-top: 0.55rem;
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: #23282E;
+}
+
+.bioLead em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.bioText {
+  margin-top: 0.6rem;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: #565D65;
+  text-wrap: pretty;
+}
+
 /* ── Ghost calendar ──────────────────────────────────────────────────────── */
 /* z-index lifts it over the ghost lettering so the day buttons are clickable. */
 .ghostCalendar {
@@ -1060,10 +1112,31 @@
     z-index: 8;
   }
 
+  /* Reads before the tabs on a phone: caption, intro, then the controls. */
+  .bio {
+    left: 50%;
+    top: 3.3rem;
+    transform: translateX(-50%);
+    width: 84%;
+    max-width: 22rem;
+    text-align: center;
+  }
+
+  .bioLead {
+    margin-top: 0.4rem;
+    font-size: 1.45rem;
+  }
+
+  .bioText {
+    margin-top: 0.4rem;
+    font-size: 0.76rem;
+    line-height: 1.6;
+  }
+
   /* Bleeds past both edges so he fills the frame rather than sitting small and
      low with dead space above him. */
   .portrait {
-    width: min(148vw, 700px);
+    width: min(132vw, 640px);
     max-width: none;
   }
 
@@ -1083,14 +1156,14 @@
   /* The tab stack is a fixed height, so on short viewports a purely
      percentage-based first row rides up into it — the max() gives every row a
      floor that clears the tabs no matter how short the screen is. */
-  .i1 { left: 3%; top: max(31%, 248px); }
-  .i2 { left: 76%; top: max(31%, 248px); }
-  .i3 { left: 3%; top: max(42%, 312px); }
-  .i4 { left: 76%; top: max(42%, 312px); }
-  .i5 { left: 3%; top: max(53%, 376px); }
-  .i6 { left: 76%; top: max(53%, 376px); }
-  .i7 { left: 3%; top: max(64%, 440px); }
-  .i8 { left: 76%; top: max(64%, 440px); }
+  .i1 { left: 3%; top: max(43%, 350px); }
+  .i2 { left: 76%; top: max(43%, 350px); }
+  .i3 { left: 3%; top: max(51%, 414px); }
+  .i4 { left: 76%; top: max(51%, 414px); }
+  .i5 { left: 3%; top: max(59%, 478px); }
+  .i6 { left: 76%; top: max(59%, 478px); }
+  .i7 { left: 3%; top: max(67%, 542px); }
+  .i8 { left: 76%; top: max(67%, 542px); }
 
   .dock {
     gap: 7px;
@@ -1103,6 +1176,28 @@
     height: 38px;
     border-radius: 10px;
   }
+}
+
+/* Short phones (SE-sized) — the intro, tabs and four icon rows don't all fit at
+   full size, so tighten the copy and pull the rows up off the dock. */
+@media (max-width: 760px) and (max-height: 720px) {
+  .bio {
+    top: 2.5rem;
+  }
+
+  .bioLead {
+    font-size: 1.3rem;
+  }
+
+  .bioText {
+    font-size: 0.72rem;
+    line-height: 1.55;
+  }
+
+  .i1, .i2 { top: 318px; }
+  .i3, .i4 { top: 378px; }
+  .i5, .i6 { top: 438px; }
+  .i7, .i8 { top: 498px; }
 }
 
 /* Very small phones — tighten the columns so nothing touches the edge. */
