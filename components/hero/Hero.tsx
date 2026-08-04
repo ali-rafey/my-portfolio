@@ -7,23 +7,20 @@ import GhostCalendar from './GhostCalendar';
 // =============================================================================
 // Ali's cutout portrait (public/ali-222.webp) stands centre on a silver wall.
 // Around him:
-//   top-left     Behance-style portfolio card           (label: Behance portfolio)
-//   over-head    <FocusTabs/> — three interactive iOS-style Focus tabs
-//   upper-right  app-icon cluster A (tilted, label-less)
-//   lower-left   app-icon cluster B  +  ghost calendar
+//   left         the intro, and a clickable <GhostCalendar/> below it
+//   over-head    <FocusStage/> — the mode tabs plus the icons they swap in
 //   lower-right  Samsung "one day / one day one" note
-//   bottom       a four-app macOS dock
+//   bottom       a four-app dock
 //
-// The stage itself is static; the only motion is per-icon hover lift and the
-// FocusTabs interaction. FocusTabs is a client component; the rest is server-
+// The stage itself is static; the motion is a per-icon hover lift plus the
+// mode switch. FocusStage and GhostCalendar are client components — the mode
+// state and the current date both live in the browser; the rest is server-
 // rendered.
 // =============================================================================
 
 function Float({ className, children }: { className: string; children: React.ReactNode }) {
   return <div className={`${styles.float} ${className}`}>{children}</div>;
 }
-
-const BOARD_IMAGES = ['b-01', 'b-02', 'b-03', 'b-05', 'b-08', 'b-13'] as const;
 
 export default function Hero() {
   return (
@@ -48,33 +45,6 @@ export default function Hero() {
           escaleads ↗
         </a>
       </header>
-
-      {/* ── Left cards ──────────────────────────────────────────────────── */}
-
-      <Float className={`${styles.posBehance} ${styles.layerBack}`}>
-        <div className={styles.behanceCard}>
-          <div className={styles.behanceSidebar}>
-            <span className={styles.behanceAvatar} />
-            <span className={styles.behanceName} />
-            <span className={styles.behanceLine} />
-            <span className={styles.behanceLineShort} />
-            <span className={styles.behanceChip}>Follow</span>
-            <span className={styles.behanceLine} />
-            <span className={styles.behanceLineShort} />
-          </div>
-          <div className={styles.behanceGrid}>
-            {BOARD_IMAGES.map((b) => (
-              <span
-                key={b}
-                className={styles.behanceThumb}
-                style={{ backgroundImage: `url('/boards/${b}.webp')` }}
-              />
-            ))}
-            <span className={styles.behanceTag}>Media</span>
-          </div>
-        </div>
-        <span className={styles.floatLabel}>Behance portfolio</span>
-      </Float>
 
       {/* ── Intro ───────────────────────────────────────────────────────── */}
       <div className={styles.bio}>
