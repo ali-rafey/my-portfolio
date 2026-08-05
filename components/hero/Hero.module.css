@@ -175,12 +175,12 @@
 }
 
 .bioLead {
-  margin-top: 0.55rem;
-  font-size: 1.75rem;
+  margin-top: 0.6rem;
+  font-size: 2.1rem;
   font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: #23282E;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  color: #1D2227;
 }
 
 .bioLead em {
@@ -189,11 +189,40 @@
   font-weight: 600;
 }
 
+/* Hairline between the name and the statement — gives the block structure
+   without adding another line of text. */
+.bioRule {
+  display: block;
+  width: 2rem;
+  height: 1px;
+  margin: 1.05rem 0 1rem;
+  background: rgba(30, 36, 43, 0.22);
+}
+
+/* The promise, set large enough to be read rather than skimmed. */
 .bioText {
-  margin-top: 0.6rem;
-  font-size: 0.82rem;
-  line-height: 1.7;
-  color: #565D65;
+  max-width: 22.5rem;
+  font-size: 1.02rem;
+  font-weight: 400;
+  line-height: 1.62;
+  letter-spacing: -0.005em;
+  color: #262C32;
+  text-wrap: balance;
+}
+
+.bioText em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* The specifics, stepped back so the eye reads the promise first. */
+.bioTextDim {
+  max-width: 16.5rem;
+  margin-top: 0.62rem;
+  font-size: 0.84rem;
+  line-height: 1.68;
+  color: #6B727A;
   text-wrap: pretty;
 }
 
@@ -600,13 +629,24 @@
   }
 
   .bioLead {
-    margin-top: 0.4rem;
-    font-size: 1.45rem;
+    margin-top: 0.35rem;
+    font-size: 1.7rem;
+  }
+
+  .bioRule {
+    margin: 0.7rem auto 0.65rem;
   }
 
   .bioText {
+    max-width: none;
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  .bioTextDim {
+    max-width: none;
     margin-top: 0.4rem;
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     line-height: 1.6;
   }
 
@@ -633,14 +673,14 @@
   /* The tab stack is a fixed height, so on short viewports a purely
      percentage-based first row rides up into it — the max() gives every row a
      floor that clears the tabs no matter how short the screen is. */
-  .i1 { left: 3%; top: max(43%, 350px); }
-  .i2 { left: 76%; top: max(43%, 350px); }
-  .i3 { left: 3%; top: max(51%, 414px); }
-  .i4 { left: 76%; top: max(51%, 414px); }
-  .i5 { left: 3%; top: max(59%, 478px); }
-  .i6 { left: 76%; top: max(59%, 478px); }
-  .i7 { left: 3%; top: max(67%, 542px); }
-  .i8 { left: 76%; top: max(67%, 542px); }
+  .i1 { left: 3%; top: max(45%, 368px); }
+  .i2 { left: 76%; top: max(45%, 368px); }
+  .i3 { left: 3%; top: max(53%, 432px); }
+  .i4 { left: 76%; top: max(53%, 432px); }
+  .i5 { left: 3%; top: max(61%, 496px); }
+  .i6 { left: 76%; top: max(61%, 496px); }
+  .i7 { left: 3%; top: max(69%, 560px); }
+  .i8 { left: 76%; top: max(69%, 560px); }
 
   .dock {
     gap: 7px;
@@ -663,18 +703,28 @@
   }
 
   .bioLead {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+  }
+
+  .bioRule {
+    margin: 0.5rem auto 0.45rem;
   }
 
   .bioText {
-    font-size: 0.72rem;
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+
+  .bioTextDim {
+    margin-top: 0.3rem;
+    font-size: 0.74rem;
     line-height: 1.55;
   }
 
-  .i1, .i2 { top: 318px; }
-  .i3, .i4 { top: 378px; }
-  .i5, .i6 { top: 438px; }
-  .i7, .i8 { top: 498px; }
+  .i1, .i2 { top: 336px; }
+  .i3, .i4 { top: 392px; }
+  .i5, .i6 { top: 448px; }
+  .i7, .i8 { top: 504px; }
 }
 
 /* Very small phones — tighten the columns so nothing touches the edge. */

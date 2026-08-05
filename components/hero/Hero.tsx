@@ -55,9 +55,14 @@ export default function Hero() {
         <p className={styles.bioLead}>
           I&apos;m <em>Ali</em>
         </p>
+
+        <span className={styles.bioRule} aria-hidden="true" />
+
         <p className={styles.bioText}>
-          I help businesses step into the tech world — web platforms, automation,
-          and AI that actually ships.
+          I help businesses step into the <em>tech world</em>.
+        </p>
+        <p className={styles.bioTextDim}>
+          Web platforms, automation, and AI — built to actually ship.
         </p>
       </div>
 
