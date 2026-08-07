@@ -17,16 +17,118 @@ const playfair = Playfair_Display({
   weight: ['400', '600', '700'],
 });
 
+// One source of truth for the production origin. Every absolute URL the SEO
+// layer emits — canonical, Open Graph, sitemap, robots — is built from this,
+// so a domain change is a one-line edit (or a NEXT_PUBLIC_SITE_URL override).
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://alianees.online';
+const SITE_NAME = 'Ali Anees — Portfolio';
+const TITLE = 'Ali Anees — Web, Automation & AI Developer';
+const DESCRIPTION =
+  'Ali Anees builds web platforms, automation, and AI systems that actually ship — helping businesses step into the tech world. Explore the portfolio.';
+
 export const metadata: Metadata = {
-  title: 'Ali — Portfolio',
-  description:
-    'Personal portfolio of Ali — builder of web platforms, computer-vision experiments, and AI systems.',
+  // Resolves every relative URL below (canonical "/", the file-based OG image)
+  // to an absolute one — required for Open Graph and canonical tags.
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: TITLE,
+    template: '%s · Ali Anees',
+  },
+  description: DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: 'Ali Anees', url: SITE_URL }],
+  creator: 'Ali Anees',
+  publisher: 'Ali Anees',
+  keywords: [
+    'Ali Anees',
+    'Ali Anees portfolio',
+    'web developer',
+    'Next.js developer',
+    'full-stack developer',
+    'automation engineer',
+    'AI developer',
+    'AI systems',
+    'web platforms',
+    'Escaleads',
+  ],
+  category: 'technology',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: TITLE,
+    description:
+      'Web platforms, automation, and AI — built to actually ship. The portfolio of Ali Anees.',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description:
+      'Web platforms, automation, and AI — built to actually ship. The portfolio of Ali Anees.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export const viewport: Viewport = {
   themeColor: '#0A2036',
   width: 'device-width',
   initialScale: 1,
+};
+
+// JSON-LD — tells search engines this page is about a specific person (an
+// entity), which is what makes rich results / knowledge-panel eligibility
+// possible. The WebSite node names the site itself.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${SITE_URL}/#person`,
+      name: 'Ali Anees',
+      url: SITE_URL,
+      image: `${SITE_URL}/ali-222.webp`,
+      jobTitle: 'Web, Automation & AI Developer',
+      description: DESCRIPTION,
+      knowsAbout: [
+        'Web Development',
+        'Next.js',
+        'Automation',
+        'Artificial Intelligence',
+        'Search Engine Optimization',
+      ],
+      worksFor: {
+        '@type': 'Organization',
+        name: 'Escaleads',
+        url: 'https://escaleadsagency.vercel.app',
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: SITE_NAME,
+      description: DESCRIPTION,
+      inLanguage: 'en',
+      publisher: { '@id': `${SITE_URL}/#person` },
+    },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -37,9 +139,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             background — the browser can't discover it until the stylesheet is
             parsed. Preloading starts the download alongside the HTML so it
             paints with the rest of the page instead of popping in after it. */}
-        <link rel="preload" as="image" href="/ali-222.webp" fetchPriority="high" />
+        <link
+          rel="preload"
+          as="image"
+          href="/ali-222.webp"
+          type="image/webp"
+          fetchPriority="high"
+        />
       </head>
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

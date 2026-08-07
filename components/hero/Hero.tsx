@@ -52,9 +52,16 @@ export default function Hero() {
           <span className={styles.bioDot} aria-hidden="true" />
           about
         </span>
-        <p className={styles.bioLead}>
+        {/* The page's single <h1>. Visible text stays the short editorial line;
+            the hidden continuation gives crawlers and screen readers the full
+            name + role without changing the composition. */}
+        <h1 className={styles.bioLead}>
           I&apos;m <em>Ali</em>
-        </p>
+          <span className={styles.srOnly}>
+            {' '}
+            Anees — a web, automation, and AI developer.
+          </span>
+        </h1>
 
         <span className={styles.bioRule} aria-hidden="true" />
 
