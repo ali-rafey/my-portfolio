@@ -14,7 +14,20 @@ export type Mode = {
   caption: string;
 };
 
-export type Icon = { label: string; src: string };
+// Some icons are "live": clicking them opens a little card instead of just
+// sitting on the wall. `card` names which one — for now only Instagram has it;
+// the others get theirs later. An icon without `card` stays a static chip.
+export type CardId =
+  | 'instagram'
+  | 'whatsapp'
+  | 'reddit'
+  | 'linkedin'
+  | 'medium'
+  | 'discord'
+  | 'patreon'
+  | 'coffee';
+
+export type Icon = { label: string; src: string; card?: CardId };
 
 export const MODES: Mode[] = [
   {
@@ -42,14 +55,14 @@ export const MODES: Mode[] = [
 
 export const ICON_SETS: Record<ModeId, Icon[]> = {
   socials: [
-    { label: 'Instagram', src: '/icons/instagram.svg' },
-    { label: 'WhatsApp', src: '/icons/whatsapp.webp' },
-    { label: 'Reddit', src: '/icons/reddit.webp' },
-    { label: 'LinkedIn', src: '/icons/linkedin.webp' },
-    { label: 'Medium', src: '/icons/medium.webp' },
-    { label: 'Discord', src: '/icons/discord.webp' },
-    { label: 'Patreon', src: '/icons/patreon.webp' },
-    { label: 'Buy Me a Coffee', src: '/icons/coffee.webp' },
+    { label: 'Instagram', src: '/icons/instagram.svg', card: 'instagram' },
+    { label: 'WhatsApp', src: '/icons/whatsapp.webp', card: 'whatsapp' },
+    { label: 'Reddit', src: '/icons/reddit.webp', card: 'reddit' },
+    { label: 'LinkedIn', src: '/icons/linkedin.webp', card: 'linkedin' },
+    { label: 'Medium', src: '/icons/medium.webp', card: 'medium' },
+    { label: 'Discord', src: '/icons/discord.webp', card: 'discord' },
+    { label: 'Patreon', src: '/icons/patreon.webp', card: 'patreon' },
+    { label: 'Buy Me a Coffee', src: '/icons/coffee.webp', card: 'coffee' },
   ],
   work: [
     { label: 'Google Business', src: '/icons/google-business.webp' },

@@ -1,0 +1,30 @@
+/* Positioning + grow-from-icon animation for the little social card. The visual
+   surface lives on the content inside; this layer only places and animates it.
+   transform-origin is set inline to point back at the chip it opened from. */
+
+.pop {
+  position: fixed;
+  z-index: 200;
+  transition:
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.16s ease;
+}
+
+.out {
+  opacity: 0;
+  transform: scale(0.72);
+}
+
+.in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pop {
+    transition: opacity 0.14s ease;
+  }
+  .out {
+    transform: none;
+  }
+}

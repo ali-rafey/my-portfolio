@@ -1,0 +1,112 @@
+/* The little Instagram card — a light chip-sized surface that matches the white
+   app icons it grows from, with the gradient DP ring and Instagram-blue Follow. */
+
+.card {
+  width: 248px;
+  padding: 14px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  box-shadow:
+    0 20px 46px -14px rgba(30, 36, 43, 0.42),
+    0 5px 14px -5px rgba(30, 36, 43, 0.22);
+  font-family: var(--font-sans);
+  color: #262626;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+/* Plain circular DP — no story ring. The photo is bottom-aligned so the hoodie
+   fills to the base of the circle and is cropped by the rim (no grey gap below,
+   so no seam), with the grey showing as headroom above the head. */
+.dp {
+  flex: 0 0 auto;
+  display: block;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: #bcbfc3;
+  background-image: url('/ali-222.webp');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 106%;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.handle {
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #262626;
+}
+
+.name {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: #8e8e8e;
+}
+
+.actions {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.follow,
+.message {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  border-radius: 9px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.12s ease;
+}
+
+.follow {
+  background: #0095f6;
+  color: #fff;
+}
+
+.follow:hover {
+  background: #0081d6;
+}
+
+.message {
+  background: #efefef;
+  color: #262626;
+}
+
+.message:hover {
+  background: #e2e2e2;
+}
+
+.follow:active,
+.message:active {
+  transform: scale(0.97);
+}
+
+.follow:focus-visible,
+.message:focus-visible {
+  outline: 2px solid #0095f6;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .follow,
+  .message {
+    transition: none;
+  }
+}

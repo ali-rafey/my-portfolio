@@ -1,0 +1,102 @@
+.card {
+  width: 236px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow:
+    0 20px 46px -14px rgba(30, 36, 43, 0.42),
+    0 5px 14px -5px rgba(30, 36, 43, 0.22);
+  font-family: var(--font-sans);
+  color: #191919;
+  text-align: center;
+}
+
+.brand {
+  display: inline-flex;
+}
+
+.dp {
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin: 10px auto 0;
+  border-radius: 50%;
+  background-color: #e6e6e6;
+  background-image: url('/dp-medium.jpeg');
+  background-repeat: no-repeat;
+  background-position: 47% 32%;
+  background-size: cover;
+}
+
+.name {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #191919;
+}
+
+.handle {
+  display: block;
+  margin-top: 1px;
+  font-size: 0.8rem;
+  color: #6b6b6b;
+}
+
+.actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+}
+
+.follow,
+.read {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.12s ease;
+}
+
+.follow {
+  flex: 1 1 auto;
+  background: #191919;
+  color: #fff;
+}
+
+.follow:hover {
+  background: #000;
+}
+
+.read {
+  flex: 0 0 auto;
+  padding: 0 16px;
+  color: #191919;
+  box-shadow: inset 0 0 0 1px #c9c9c9;
+}
+
+.read:hover {
+  box-shadow: inset 0 0 0 1px #191919;
+}
+
+.follow:active,
+.read:active {
+  transform: scale(0.98);
+}
+
+.follow:focus-visible,
+.read:focus-visible {
+  outline: 2px solid #191919;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .follow,
+  .read {
+    transition: none;
+  }
+}

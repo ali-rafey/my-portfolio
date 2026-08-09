@@ -5,3 +5,9 @@ out/
 !.env.example
 .DS_Store
 *.tsbuildinfo
+
+# Local editor / harness config
+.claude/
+
+# Scratch folder for source images before they're placed in public/
+use these/

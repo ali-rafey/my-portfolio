@@ -1,0 +1,80 @@
+.card {
+  width: 242px;
+  padding: 14px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow:
+    0 20px 46px -14px rgba(30, 36, 43, 0.42),
+    0 5px 14px -5px rgba(30, 36, 43, 0.22);
+  font-family: var(--font-sans);
+  color: #1a1a1b;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.dp {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #1b2b3a;
+  background-image: url('/dp-reddit.jpeg');
+  background-repeat: no-repeat;
+  background-position: center 34%;
+  background-size: cover;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.user {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1a1a1b;
+}
+
+.sub {
+  font-size: 0.76rem;
+  color: #7c7c7c;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 13px;
+  height: 36px;
+  border-radius: 999px;
+  background: #ff4500;
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 700;
+  transition: background 0.2s ease, transform 0.12s ease;
+}
+
+.action:hover {
+  background: #e03d00;
+}
+
+.action:active {
+  transform: scale(0.98);
+}
+
+.action:focus-visible {
+  outline: 2px solid #ff4500;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action {
+    transition: none;
+  }
+}

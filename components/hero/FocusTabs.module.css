@@ -136,21 +136,93 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tab, .icon { transition: none; }
+  .tab, .icon, .meta { transition: none; }
   .tab.on::before, .tab.on::after,
   .tab.on .icon_socials, .tab.on .icon_work,
   .tab.on .icon_focus .focusRing { animation: none; }
 }
 
+/* ── Phone: one segmented row instead of a stack ──────────────────────────
+   The three modes sit in a single row. The active one expands to icon + label;
+   the other two collapse to icon-only circles. Switching just moves the label
+   from one chip to the next. */
 @media (max-width: 760px) {
-  /* Sits below the intro copy on a phone. */
-  .stack { top: 12.6rem; width: 232px; gap: 7px; }
-  .tab { min-height: 48px; padding: 7px 13px; }
-  .label { font-size: 0.8rem; }
+  /* One shared box holds all three, iOS segmented-control style. */
+  .stack {
+    top: 12.6rem;
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 5px;
+    border-radius: 27px;
+    background: rgba(48, 50, 56, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+      0 14px 30px -14px rgba(12, 14, 18, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  /* Segments carry no chrome of their own — the box provides it. Constant
+     padding, content-driven width, so the segment grows as its label opens. */
+  .tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    min-height: 0;
+    padding: 0 12px;
+    border: none;
+    background: none;
+    border-radius: 21px;
+    box-shadow: none;
+    transform: none;
+    transition: background 0.55s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  .tab:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  /* Active: a lighter "thumb" inside the box that fades in as the label opens. */
+  .tab.on {
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .tab.on:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* The label slides open on the active segment and shut on the previous one —
+     animating max-width (not the un-animatable width:auto) lets the segment, the
+     whole box, and its centring all move smoothly. Status / "···" never show. */
+  .meta {
+    display: flex;
+    max-width: 0;
+    margin-left: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition:
+      max-width 0.55s cubic-bezier(0.33, 1, 0.68, 1),
+      margin-left 0.55s cubic-bezier(0.33, 1, 0.68, 1),
+      opacity 0.45s ease;
+  }
+
+  .tab.on .meta {
+    max-width: 76px;
+    margin-left: 7px;
+    opacity: 1;
+  }
+
+  .status,
+  .dots { display: none; }
+
+  .label { font-size: 0.86rem; }
 }
 
-/* Short phones — pulled up to leave room for four icon rows above the dock. */
+/* Short phones — pulled up to leave room for the icon rows above the dock. */
 @media (max-width: 760px) and (max-height: 720px) {
-  .stack { top: 11.2rem; gap: 6px; }
-  .tab { min-height: 44px; }
+  .stack { top: 11.2rem; }
+  .tab { height: 42px; }
 }

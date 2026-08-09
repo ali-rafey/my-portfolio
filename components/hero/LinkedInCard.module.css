@@ -1,0 +1,119 @@
+.card {
+  width: 260px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow:
+    0 20px 46px -14px rgba(30, 36, 43, 0.42),
+    0 5px 14px -5px rgba(30, 36, 43, 0.22);
+  font-family: var(--font-sans);
+  color: #1b1f23;
+}
+
+.banner {
+  position: relative;
+  height: 52px;
+  background: linear-gradient(120deg, #0a66c2, #378fe9);
+}
+
+.brand {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  display: inline-flex;
+  color: #fff;
+  opacity: 0.95;
+}
+
+.dp {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 16px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background-color: #e9edf0;
+  background-image: url('/dp-linkedin.jpeg');
+  background-repeat: no-repeat;
+  /* The photo is near-square, so cover would squeeze the whole cap-to-gown into
+     the circle and shrink the face — zoom in and hold the face + cap. */
+  background-position: 50% 20%;
+  background-size: 152%;
+}
+
+.body {
+  padding: 8px 16px 16px;
+}
+
+.name {
+  display: block;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #1b1f23;
+}
+
+.headline {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: #56687a;
+}
+
+.actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+}
+
+.connect,
+.view {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 18px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.12s ease;
+}
+
+.connect {
+  flex: 1 1 auto;
+  background: #0a66c2;
+  color: #fff;
+}
+
+.connect:hover {
+  background: #004182;
+}
+
+.view {
+  flex: 0 0 auto;
+  color: #0a66c2;
+  box-shadow: inset 0 0 0 1.5px #0a66c2;
+}
+
+.view:hover {
+  background: rgba(10, 102, 194, 0.08);
+}
+
+.connect:active,
+.view:active {
+  transform: scale(0.98);
+}
+
+.connect:focus-visible,
+.view:focus-visible {
+  outline: 2px solid #0a66c2;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .connect,
+  .view {
+    transition: none;
+  }
+}

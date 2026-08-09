@@ -1,0 +1,106 @@
+.card {
+  width: 240px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #232428;
+  box-shadow:
+    0 20px 46px -14px rgba(10, 12, 16, 0.55),
+    0 5px 14px -5px rgba(10, 12, 16, 0.35);
+  font-family: var(--font-sans);
+  color: #f2f3f5;
+}
+
+.banner {
+  position: relative;
+  height: 50px;
+  background: #5865f2;
+}
+
+.brand {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  display: inline-flex;
+  color: #fff;
+}
+
+/* No custom avatar on Discord — its default: the logo on blurple. */
+.dp {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  margin: -26px 0 0 14px;
+  border-radius: 50%;
+  border: 4px solid #232428;
+  background: #5865f2;
+  color: #fff;
+}
+
+.dpLogo {
+  width: 33px;
+  height: 25px;
+}
+
+/* Online status dot. */
+.status {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid #232428;
+  background: #23a55a;
+}
+
+.body {
+  padding: 8px 14px 14px;
+}
+
+.name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f2f3f5;
+}
+
+.username {
+  display: block;
+  margin-top: 1px;
+  font-size: 0.82rem;
+  color: #b5bac1;
+}
+
+.copy {
+  width: 100%;
+  margin-top: 12px;
+  height: 34px;
+  border-radius: 8px;
+  background: #5865f2;
+  color: #fff;
+  font-size: 0.84rem;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.12s ease;
+}
+
+.copy:hover {
+  background: #4752c4;
+}
+
+.copy:active {
+  transform: scale(0.98);
+}
+
+.copy:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copy {
+    transition: none;
+  }
+}

@@ -418,6 +418,27 @@
     0 6px 14px -4px rgba(30, 36, 43, 0.32);
 }
 
+/* A "live" chip is a real button — clickable, keyboard-reachable. It reuses all
+   of .iconFloat's positioning and hover lift; this only resets button chrome
+   and paints a focus ring around the chip so keyboard users can see it. */
+.iconButton {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  background: none;
+}
+
+.iconButton:focus-visible {
+  outline: none;
+}
+
+.iconButton:focus-visible .appChip {
+  box-shadow:
+    0 0 0 3px #fff,
+    0 0 0 5.5px var(--orange),
+    0 18px 40px -12px rgba(30, 36, 43, 0.5);
+}
+
 /* Switching a mode tab swaps the icon set in place. Each chip drops in with a
    small stagger so the set reads as one wave rather than eight separate pops. */
 .iconSwap {
