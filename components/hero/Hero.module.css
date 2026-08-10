@@ -11,7 +11,12 @@
 
   position: relative;
   min-height: 100svh;
+  /* `clip` (not `hidden`) so the wide portrait is clipped WITHOUT making the
+     stage a scroll container — otherwise focusing a chip or the WhatsApp field
+     scrolls this box sideways and shifts the whole layout, with no scrollbar to
+     put it back. `hidden` is the fallback for anything without `clip`. */
   overflow: hidden;
+  overflow: clip;
   background:
     radial-gradient(125% 90% at 50% -5%, #ECEAE7 0%, #E0DED9 46%, #C9C7C2 100%);
 }

@@ -11,11 +11,14 @@ import MediumCard from './MediumCard';
 import DiscordCard from './DiscordCard';
 import PatreonCard from './PatreonCard';
 import CoffeeCard from './CoffeeCard';
+import AppCard from './AppCard';
+import { APP_DATA } from './appCards';
 import { ICON_SETS, ALL_ICON_SRCS, MODES, type CardId, type ModeId } from './modes';
 import styles from './Hero.module.css';
 
-// Each live icon maps to the card its chip opens.
-const CARDS: Record<CardId, React.ComponentType<{ titleId: string }>> = {
+// The socials open bespoke components; the Work / Focus tools all share <AppCard>
+// with their data pulled from APP_DATA.
+const CARDS: Partial<Record<CardId, React.ComponentType<{ titleId: string }>>> = {
   instagram: InstagramCard,
   whatsapp: WhatsAppCard,
   reddit: RedditCard,
@@ -44,7 +47,9 @@ export default function FocusStage() {
   // close animation — `card` is already null by then, so we render from here.
   const shownCard = useRef<CardId | null>(null);
   if (card) shownCard.current = card;
-  const ShownCard = shownCard.current ? CARDS[shownCard.current] : null;
+  const shown = shownCard.current;
+  const ShownSocial = shown ? CARDS[shown] : undefined;
+  const appData = shown ? APP_DATA[shown] : undefined;
   // The tapped chip's on-screen box, so the popover can anchor to it and grow
   // out of it rather than materialising in the middle.
   const [anchor, setAnchor] = useState<
@@ -121,7 +126,11 @@ export default function FocusStage() {
         labelledBy={CARD_TITLE_ID}
         anchor={anchor}
       >
-        {ShownCard && <ShownCard titleId={CARD_TITLE_ID} />}
+        {ShownSocial ? (
+          <ShownSocial titleId={CARD_TITLE_ID} />
+        ) : appData ? (
+          <AppCard titleId={CARD_TITLE_ID} data={appData} />
+        ) : null}
       </Popover>
     </>
   );

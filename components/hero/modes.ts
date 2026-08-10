@@ -18,6 +18,7 @@ export type Mode = {
 // sitting on the wall. `card` names which one — for now only Instagram has it;
 // the others get theirs later. An icon without `card` stays a static chip.
 export type CardId =
+  // socials — Ali's own profiles
   | 'instagram'
   | 'whatsapp'
   | 'reddit'
@@ -25,7 +26,22 @@ export type CardId =
   | 'medium'
   | 'discord'
   | 'patreon'
-  | 'coffee';
+  | 'coffee'
+  // work + focus — the tools themselves, each shown in its own theme
+  | 'google-business'
+  | 'meta'
+  | 'claude'
+  | 'google-ads'
+  | 'shopify'
+  | 'google-analytics'
+  | 'search-console'
+  | 'pinterest'
+  | 'nextjs'
+  | 'github'
+  | 'notion'
+  | 'supabase'
+  | 'gmail'
+  | 'n8n';
 
 export type Icon = { label: string; src: string; card?: CardId };
 
@@ -65,24 +81,24 @@ export const ICON_SETS: Record<ModeId, Icon[]> = {
     { label: 'Buy Me a Coffee', src: '/icons/coffee.webp', card: 'coffee' },
   ],
   work: [
-    { label: 'Google Business', src: '/icons/google-business.webp' },
-    { label: 'Meta', src: '/icons/meta.png' },
-    { label: 'Claude', src: '/icons/claude.webp' },
-    { label: 'Google Ads', src: '/icons/google-ads-96.png' },
-    { label: 'Shopify', src: '/icons/shopify-96.png' },
-    { label: 'Google Analytics', src: '/icons/google-analytics.webp' },
-    { label: 'Search Console', src: '/icons/google-search.webp' },
-    { label: 'Pinterest', src: '/icons/pinterest.webp' },
+    { label: 'Google Business', src: '/icons/google-business.webp', card: 'google-business' },
+    { label: 'Meta', src: '/icons/meta.png', card: 'meta' },
+    { label: 'Claude', src: '/icons/claude.webp', card: 'claude' },
+    { label: 'Google Ads', src: '/icons/google-ads-96.png', card: 'google-ads' },
+    { label: 'Shopify', src: '/icons/shopify-96.png', card: 'shopify' },
+    { label: 'Google Analytics', src: '/icons/google-analytics.webp', card: 'google-analytics' },
+    { label: 'Search Console', src: '/icons/google-search.webp', card: 'search-console' },
+    { label: 'Pinterest', src: '/icons/pinterest.webp', card: 'pinterest' },
   ],
   focus: [
-    { label: 'Next.js', src: '/icons/nextjs.webp' },
-    { label: 'GitHub', src: '/icons/github.webp' },
-    { label: 'Notion', src: '/icons/notion.webp' },
-    { label: 'Supabase', src: '/icons/supabase.webp' },
-    { label: 'Gmail', src: '/icons/gmail.webp' },
-    { label: 'n8n', src: '/icons/n8n.svg' },
-    { label: 'Search Console', src: '/icons/google-search.webp' },
-    { label: 'Meta', src: '/icons/meta.png' },
+    { label: 'Next.js', src: '/icons/nextjs.webp', card: 'nextjs' },
+    { label: 'GitHub', src: '/icons/github.webp', card: 'github' },
+    { label: 'Notion', src: '/icons/notion.webp', card: 'notion' },
+    { label: 'Supabase', src: '/icons/supabase.webp', card: 'supabase' },
+    { label: 'Gmail', src: '/icons/gmail.webp', card: 'gmail' },
+    { label: 'n8n', src: '/icons/n8n.svg', card: 'n8n' },
+    { label: 'Search Console', src: '/icons/google-search.webp', card: 'search-console' },
+    { label: 'Meta', src: '/icons/meta.png', card: 'meta' },
   ],
 };
 

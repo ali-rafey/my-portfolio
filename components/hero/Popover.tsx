@@ -102,21 +102,24 @@ export default function Popover({ open, onClose, anchor, labelledBy, children }:
     }
   }, [render, pos, entered]);
 
-  // Drop focus onto the first action when it opens; hand it back on close.
+  // Drop focus into the card when it opens; hand it back on close.
   useEffect(() => {
-    if (render && entered) {
-      // First control in the card — the composer input if there is one, else the
-      // first link/button. preventScroll so focusing it doesn't fire a scroll,
-      // which our own scroll-to-dismiss listener would read as "close me".
-      cardRef.current
-        ?.querySelector<HTMLElement>('input, textarea, a[href], button')
-        ?.focus({ preventScroll: true });
-    }
+    if (!(render && entered)) return;
+    const coarse =
+      typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+    // On touch, focus the dialog itself so opening doesn't yank up the on-screen
+    // keyboard (the user taps the field when ready). On desktop, drop straight
+    // into the first field/action. preventScroll so focus never fires a scroll.
+    const target = coarse
+      ? cardRef.current
+      : cardRef.current?.querySelector<HTMLElement>('input, textarea, a[href], button') ??
+        cardRef.current;
+    target?.focus({ preventScroll: true });
   }, [render, entered]);
 
   useEffect(() => {
     if (!render && restoreRef.current) {
-      restoreRef.current.focus();
+      restoreRef.current.focus({ preventScroll: true });
       restoreRef.current = null;
     }
   }, [render]);
@@ -138,23 +141,23 @@ export default function Popover({ open, onClose, anchor, labelledBy, children }:
       if (t.closest?.('[data-chip]')) return;
       onClose();
     };
-    const onResize = () => onClose();
-    // Close when the *page* scrolls, but not when a scrollable region inside the
-    // card does (e.g. a long chat) — those target an element, not the document.
-    const onScroll = (e: Event) => {
-      const t = e.target;
-      if (t === document || t === document.documentElement || t === document.body) onClose();
+    // Close on a real width change (window resize / orientation) — but ignore
+    // height-only changes: on mobile that's just the on-screen keyboard opening,
+    // and closing there would kill the WhatsApp composer mid-message. We also
+    // don't dismiss on scroll for the same reason (focusing a field scrolls it
+    // into view); an outside tap or Escape is enough.
+    const startW = window.innerWidth;
+    const onResize = () => {
+      if (Math.abs(window.innerWidth - startW) > 40) onClose();
     };
 
     document.addEventListener('keydown', onKey, true);
     document.addEventListener('mousedown', onDown, true);
     window.addEventListener('resize', onResize);
-    window.addEventListener('scroll', onScroll, true);
     return () => {
       document.removeEventListener('keydown', onKey, true);
       document.removeEventListener('mousedown', onDown, true);
       window.removeEventListener('resize', onResize);
-      window.removeEventListener('scroll', onScroll, true);
     };
   }, [render, onClose]);
 
@@ -165,6 +168,7 @@ export default function Popover({ open, onClose, anchor, labelledBy, children }:
       ref={cardRef}
       role="dialog"
       aria-labelledby={labelledBy}
+      tabIndex={-1}
       className={`${styles.pop} ${entered ? styles.in : styles.out}`}
       style={{
         top: pos ? pos.top : 0,

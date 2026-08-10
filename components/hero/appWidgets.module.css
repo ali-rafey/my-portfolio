@@ -1,0 +1,434 @@
+/* Signature widgets for the tools that aren't a plain metric. Each is used on
+   exactly one card, so it's styled for that card's theme directly. */
+
+/* ── Claude — prompt + reply ─────────────────────────────────────────────── */
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.chatIn,
+.chatOut {
+  max-width: 92%;
+  padding: 6px 9px;
+  font-size: 0.76rem;
+  line-height: 1.35;
+  border-radius: 11px;
+}
+
+.chatIn {
+  align-self: flex-end;
+  background: #efefec;
+  color: #3d3d3a;
+  border-bottom-right-radius: 3px;
+}
+
+.chatOut {
+  align-self: flex-start;
+  background: rgba(217, 119, 87, 0.13);
+  color: #82412a;
+  border-bottom-left-radius: 3px;
+}
+
+/* ── Next.js — build terminal ────────────────────────────────────────────── */
+.term {
+  padding: 8px 10px;
+  border: 1px solid #262626;
+  border-radius: 9px;
+  background: #0a0a0a;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.65;
+}
+
+.termLine {
+  color: #ededed;
+}
+
+.prompt {
+  margin-right: 5px;
+  color: #fff;
+}
+
+.termOk {
+  color: #3ecf8e;
+}
+
+/* ── GitHub — contributions grid ─────────────────────────────────────────── */
+.ghGrid {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  gap: 3px;
+}
+
+.ghGrid span {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: #2da44e;
+}
+
+.ghLabel {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.71rem;
+  color: #8b949e;
+}
+
+/* ── Notion — checklist ──────────────────────────────────────────────────── */
+.notion {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.nRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #37352f;
+}
+
+.nCheck {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  background: #2383e2;
+  color: #fff;
+  font-size: 0.6rem;
+}
+
+.nBox {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  border: 1.5px solid #d3d1cb;
+}
+
+.nDone {
+  color: #9b9a97;
+  text-decoration: line-through;
+}
+
+/* ── Supabase — db status + table ────────────────────────────────────────── */
+.sbBar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 8px;
+  font-size: 0.78rem;
+  color: #ededed;
+}
+
+.sbDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3ecf8e;
+  box-shadow: 0 0 8px #3ecf8e;
+}
+
+.sbTable {
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.71rem;
+}
+
+.sbRow {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+}
+
+.sbRow span {
+  padding: 4px 8px;
+  color: #c9c9c9;
+  border-bottom: 1px solid #232323;
+}
+
+.sbRow:last-child span {
+  border-bottom: none;
+}
+
+.sbHead span {
+  color: #3ecf8e;
+  background: #1b1b1b;
+}
+
+/* ── Gmail — inbox row ───────────────────────────────────────────────────── */
+.gmail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gmAvatar {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #635bff;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.gmMeta {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.gmTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.gmFrom {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #202124;
+}
+
+.gmTime {
+  font-size: 0.67rem;
+  color: #5f6368;
+}
+
+.gmSub {
+  font-size: 0.75rem;
+  color: #5f6368;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── n8n — workflow nodes ────────────────────────────────────────────────── */
+.n8n {
+  display: flex;
+  align-items: center;
+}
+
+.node {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border: 1.5px solid #ea4b71;
+  border-radius: 7px;
+  background: #fff;
+  color: #c02a52;
+  font-size: 0.71rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.wire {
+  flex: 1 1 auto;
+  min-width: 7px;
+  height: 2px;
+  background: #ea4b71;
+  opacity: 0.5;
+}
+
+/* ── Google Analytics — channel breakdown ────────────────────────────────── */
+.ga {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.gaRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gaLabel {
+  flex: 0 0 56px;
+  font-size: 0.73rem;
+  color: #5f6368;
+}
+
+.gaTrack {
+  flex: 1 1 auto;
+  height: 7px;
+  border-radius: 4px;
+  background: #f0f1ef;
+  overflow: hidden;
+}
+
+.gaFill {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: #e8710a;
+}
+
+.gaPct {
+  flex: 0 0 auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #202124;
+}
+
+/* ── Google Ads — search ad preview ──────────────────────────────────────── */
+.adTop {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.adBadge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #202124;
+}
+
+.adUrl {
+  font-size: 0.74rem;
+  color: #202124;
+}
+
+.adTitle {
+  margin-top: 2px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #1a0dab;
+}
+
+.adDesc {
+  margin-top: 1px;
+  font-size: 0.74rem;
+  line-height: 1.3;
+  color: #4d5156;
+}
+
+/* ── Meta — ad campaign ──────────────────────────────────────────────────── */
+.metaTop {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 9px;
+}
+
+.metaDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #31a24c;
+}
+
+.metaName {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1c1e21;
+}
+
+.metaStats {
+  display: flex;
+  gap: 16px;
+}
+
+.metaStats div {
+  display: flex;
+  flex-direction: column;
+}
+
+.metaStats b {
+  font-size: 0.98rem;
+  color: #0866ff;
+}
+
+.metaStats span {
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #8a8d91;
+}
+
+/* ── Google Business — rating ────────────────────────────────────────────── */
+.gbRating {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.gbNum {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #202124;
+}
+
+.gbStars {
+  font-size: 0.98rem;
+  letter-spacing: 1px;
+  color: #fbbc04;
+}
+
+.gbSub {
+  margin-top: 3px;
+  font-size: 0.74rem;
+  color: #5f6368;
+}
+
+/* ── Search Console — top queries ────────────────────────────────────────── */
+.sc {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.scRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+}
+
+.scQuery {
+  color: #202124;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scPos {
+  flex: 0 0 auto;
+  padding: 1px 7px;
+  border-radius: 10px;
+  background: #e8f0fe;
+  color: #1a73e8;
+  font-size: 0.69rem;
+  font-weight: 700;
+}
+
+/* ── Pinterest — pin masonry ─────────────────────────────────────────────── */
+.pinGrid {
+  column-count: 3;
+  column-gap: 5px;
+}
+
+.pinGrid span {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  border-radius: 7px;
+}
+
+.pinLabel {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.72rem;
+  color: #5f6368;
+}

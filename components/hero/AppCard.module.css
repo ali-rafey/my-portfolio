@@ -1,0 +1,153 @@
+/* Shared shell for the tool cards. --brand is set per app; .dark flips the
+   surface. Widget-specific styles for reusable widgets live here too. */
+
+.card {
+  width: 250px;
+  padding: 14px 15px 15px;
+  border-radius: 16px;
+  background: #fff;
+  color: #1b1c1e;
+  box-shadow:
+    0 20px 46px -14px rgba(30, 36, 43, 0.42),
+    0 5px 14px -5px rgba(30, 36, 43, 0.22);
+  font-family: var(--font-sans);
+}
+
+.card.dark {
+  background: #15171c;
+  color: #e9ebee;
+  box-shadow:
+    0 20px 46px -14px rgba(8, 10, 14, 0.6),
+    0 5px 14px -5px rgba(8, 10, 14, 0.4);
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.logo :global(img),
+.logo svg {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.name {
+  margin-right: auto;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: inherit;
+}
+
+.visit {
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: #9aa0a6;
+  transition: color 0.2s ease;
+}
+
+.visit:hover {
+  color: var(--brand);
+}
+
+.visit:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Tagline ────────────────────────────────────────────────────────────── */
+.tagline {
+  margin-top: 9px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #5f6368;
+}
+
+.card.dark .tagline {
+  color: #a6abb3;
+}
+
+.widget {
+  margin-top: 12px;
+}
+
+/* ── Spark (metric + sparkline) ─────────────────────────────────────────── */
+.metric {
+  display: block;
+}
+
+.metricTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.metricLabel {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #80868b;
+}
+
+.card.dark .metricLabel {
+  color: #8b9099;
+}
+
+.delta {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.up {
+  color: #17915a;
+}
+
+.down {
+  color: #d93a2b;
+}
+
+.metricValue {
+  margin-top: 2px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: inherit;
+}
+
+.spark {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 30px;
+  margin-top: 9px;
+}
+
+.spark span {
+  flex: 1;
+  min-height: 3px;
+  border-radius: 2px 2px 0 0;
+  background: var(--brand);
+  opacity: 0.4;
+}
+
+/* The last two bars read as "latest", fully saturated. */
+.spark span:nth-last-child(1),
+.spark span:nth-last-child(2) {
+  opacity: 1;
+}
