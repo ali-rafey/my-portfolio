@@ -12,13 +12,13 @@
 
 .banner {
   position: relative;
-  height: 52px;
+  height: 34px;
   background: linear-gradient(120deg, #0a66c2, #378fe9);
 }
 
 .brand {
   position: absolute;
-  top: 8px;
+  top: 6px;
   right: 10px;
   display: inline-flex;
   color: #fff;
@@ -35,10 +35,11 @@
   background-color: #e9edf0;
   background-image: url('/dp-linkedin.jpeg');
   background-repeat: no-repeat;
-  /* The photo is near-square, so cover would squeeze the whole cap-to-gown into
-     the circle and shrink the face — zoom in and hold the face + cap. */
-  background-position: 50% 20%;
-  background-size: 152%;
+  /* Ali is a small, distant figure in this graduation shot (his head is only
+     ~37% of the frame's height), so zoom in hard and centre on the cap + face
+     to make it read as a proper headshot rather than a tiny full-body view. */
+  background-position: 50% 25%;
+  background-size: 225%;
 }
 
 .body {

@@ -158,6 +158,44 @@ export const APP_DATA: Partial<Record<CardId, AppCardData>> = {
   },
 
   // ── Focus — the build stack ────────────────────────────────────────────
+  // Meta & Search Console also appear in Work mode; in Focus they're shown from
+  // the builder's side — integration & site health rather than marketing.
+  'meta-dev': {
+    name: 'Meta',
+    tagline: 'Wiring the Pixel & Graph API into builds.',
+    brand: '#0866FF',
+    site: 'https://developers.facebook.com',
+    logo: logo('/icons/meta.png'),
+    widget: (
+      <div>
+        <div className={w.pxBar}>
+          <span className={w.pxDot} /> Pixel · Firing
+        </div>
+        <div className={w.pxCode}>fbq(&apos;track&apos;, &apos;Lead&apos;);</div>
+      </div>
+    ),
+  },
+  'search-console-dev': {
+    name: 'Search Console',
+    tagline: 'Keeping every page indexed & healthy.',
+    brand: '#4285F4',
+    site: 'https://search.google.com/search-console',
+    logo: logo('/icons/google-search.webp'),
+    widget: (
+      <div>
+        <div className={w.covTop}>
+          <span className={w.covNum}>48</span>
+          <span className={w.covLabel}>pages indexed</span>
+        </div>
+        <div className={w.covBar}>
+          <span style={{ width: '100%' }} />
+        </div>
+        <div className={w.covSub}>
+          <span className={w.covDot} /> 0 errors · all valid
+        </div>
+      </div>
+    ),
+  },
   claude: {
     name: 'Claude',
     tagline: 'Shipping AI features & automating busywork.',

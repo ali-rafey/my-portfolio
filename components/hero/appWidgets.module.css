@@ -432,3 +432,83 @@
   font-size: 0.72rem;
   color: #5f6368;
 }
+
+/* ── Meta (focus) — Pixel / Graph API integration ────────────────────────── */
+.pxBar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1c1e21;
+}
+
+.pxDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #31a24c;
+  box-shadow: 0 0 7px #31a24c;
+}
+
+.pxCode {
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: #f0f2f5;
+  border: 1px solid #e4e6eb;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #0866ff;
+}
+
+/* ── Search Console (focus) — index coverage ─────────────────────────────── */
+.covTop {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.covNum {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #202124;
+}
+
+.covLabel {
+  font-size: 0.76rem;
+  color: #5f6368;
+}
+
+.covBar {
+  height: 7px;
+  margin-top: 8px;
+  border-radius: 4px;
+  background: #e6eaf0;
+  overflow: hidden;
+}
+
+.covBar span {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: #1e8e3e;
+}
+
+.covSub {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: #1e8e3e;
+  font-weight: 600;
+}
+
+.covDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1e8e3e;
+}

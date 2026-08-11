@@ -36,6 +36,9 @@ export type CardId =
   | 'google-analytics'
   | 'search-console'
   | 'pinterest'
+  // focus-mode variants of tools that also live in work mode, shown differently
+  | 'meta-dev'
+  | 'search-console-dev'
   | 'nextjs'
   | 'github'
   | 'notion'
@@ -97,8 +100,8 @@ export const ICON_SETS: Record<ModeId, Icon[]> = {
     { label: 'Supabase', src: '/icons/supabase.webp', card: 'supabase' },
     { label: 'Gmail', src: '/icons/gmail.webp', card: 'gmail' },
     { label: 'n8n', src: '/icons/n8n.svg', card: 'n8n' },
-    { label: 'Search Console', src: '/icons/google-search.webp', card: 'search-console' },
-    { label: 'Meta', src: '/icons/meta.png', card: 'meta' },
+    { label: 'Search Console', src: '/icons/google-search.webp', card: 'search-console-dev' },
+    { label: 'Meta', src: '/icons/meta.png', card: 'meta-dev' },
   ],
 };
 

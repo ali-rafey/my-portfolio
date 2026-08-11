@@ -42,17 +42,14 @@ export default function WhatsAppCard({ titleId }: { titleId: string }) {
         </span>
       </div>
 
+      {/* Just the one incoming bubble — no live echo of what you type, so the
+          card never grows and the popover never has to reposition (which on
+          mobile, with the keyboard up, read as the box jumping around). */}
       <div className={styles.chat}>
         <div className={styles.bubbleIn}>
           <span className={styles.bubbleText}>Hey! 👋 Drop me a message.</span>
           <span className={styles.time}>Ali</span>
         </div>
-        {trimmed && (
-          <div className={styles.bubbleOut}>
-            <span className={styles.bubbleText}>{text}</span>
-            <span className={styles.timeOut}>you</span>
-          </div>
-        )}
       </div>
 
       <div className={styles.composer}>
