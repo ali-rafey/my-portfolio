@@ -147,9 +147,10 @@
    the other two collapse to icon-only circles. Switching just moves the label
    from one chip to the next. */
 @media (max-width: 760px) {
-  /* One shared box holds all three, iOS segmented-control style. */
+  /* One shared box holds all three, iOS segmented-control style. Sits just under
+     the caption now that the intro copy above it is gone. */
   .stack {
-    top: 12.6rem;
+    top: 4.25rem;
     width: auto;
     flex-direction: row;
     align-items: center;
@@ -221,8 +222,8 @@
   .label { font-size: 0.86rem; }
 }
 
-/* Short phones — pulled up to leave room for the icon rows above the dock. */
+/* Short phones — a touch tighter under the caption. */
 @media (max-width: 760px) and (max-height: 720px) {
-  .stack { top: 11.2rem; }
+  .stack { top: 3.75rem; }
   .tab { height: 42px; }
 }

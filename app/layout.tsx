@@ -22,9 +22,11 @@ const playfair = Playfair_Display({
 // so a domain change is a one-line edit (or a NEXT_PUBLIC_SITE_URL override).
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://alianees.online';
 const SITE_NAME = 'Ali Anees — Portfolio';
-const TITLE = 'Ali Anees — Web, Automation & AI Developer';
+const TITLE = 'Ali Anees — Business Tech Partner';
 const DESCRIPTION =
-  'Ali Anees builds web platforms, automation, and AI systems that actually ship — helping businesses step into the tech world. Explore the portfolio.';
+  'Ali Anees — your business technology partner, helping businesses step into the tech world.';
+// Shorter line for the social-share cards (Open Graph / Twitter / the OG image).
+const SHARE_DESCRIPTION = 'Your business tech partner — helping businesses step into the tech world.';
 
 export const metadata: Metadata = {
   // Resolves every relative URL below (canonical "/", the file-based OG image)
@@ -42,6 +44,8 @@ export const metadata: Metadata = {
   keywords: [
     'Ali Anees',
     'Ali Anees portfolio',
+    'business tech partner',
+    'business technology partner',
     'web developer',
     'Next.js developer',
     'full-stack developer',
@@ -60,15 +64,13 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: SITE_NAME,
     title: TITLE,
-    description:
-      'Web platforms, automation, and AI — built to actually ship. The portfolio of Ali Anees.',
+    description: SHARE_DESCRIPTION,
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
     title: TITLE,
-    description:
-      'Web platforms, automation, and AI — built to actually ship. The portfolio of Ali Anees.',
+    description: SHARE_DESCRIPTION,
   },
   robots: {
     index: true,
@@ -104,7 +106,7 @@ const jsonLd = {
       name: 'Ali Anees',
       url: SITE_URL,
       image: `${SITE_URL}/ali-222.webp`,
-      jobTitle: 'Web, Automation & AI Developer',
+      jobTitle: 'Business Technology Partner',
       description: DESCRIPTION,
       knowsAbout: [
         'Web Development',

@@ -3,7 +3,7 @@ import { ImageResponse } from 'next/og';
 // The card that renders when the site is pasted into WhatsApp / LinkedIn /
 // Slack / X / iMessage. Next wires this into both og:image and twitter:image
 // automatically. Generated at build so there's no static image to maintain.
-export const alt = 'Ali Anees — Web, Automation & AI Developer';
+export const alt = 'Ali Anees — Business Tech Partner';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -37,7 +37,7 @@ export default function OpengraphImage() {
           </div>
           <div style={{ width: 96, height: 4, background: 'rgba(10,32,54,0.28)', margin: '30px 0' }} />
           <div style={{ fontSize: 40, color: '#262C32', lineHeight: 1.35, maxWidth: 900 }}>
-            Web platforms, automation, and AI — built to actually ship.
+            Your business tech partner — helping businesses step into the tech world.
           </div>
         </div>
 
